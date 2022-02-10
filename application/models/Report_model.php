@@ -4,42 +4,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
 class Report_model extends CI_Model 
 {
-    public function show_items($cat_id){
-
-        if ($cat_id == 0) {
-            $sql = "SELECT * FROM int_items ORDER BY created_at DESC";
-        }
-        else{
-            $sql = "SELECT * FROM int_items WHERE item_catogery = $cat_id ORDER BY created_at DESC";
-        }
-        
+    public function inventory(){
+        $sql = "SELECT * FROM purchase_items";
         $query = $this->db->query($sql);
         $result = $query->result();
 
         return $result;
     }
-    //All item Catogiries
-    public function item_catogories(){
-        $sql = "SELECT * FROM int_catogery ORDER BY catogery ASC";
-        $query = $this->db->query($sql);
-        $result = $query->result();
 
-        return $result;
+    public function item_name($item_id){
+        $sql = "SELECT item_name FROM int_items WHERE item_id='$item_id'";
+        $query = $this->db->query($sql);
+        return $row = $query->first_row();
     }
-    public function item_catogery($cat_id){
-        $sql = "SELECT * FROM int_catogery WHERE cat_id = $cat_id";
+    
+    public function delete_inventory($id)
+    {
+        $sql = "DELETE FROM purchase_items WHERE id=$id";
         $query = $this->db->query($sql);
-        $result = $query->first_row();
-
-        return $result;
     }
-    public function item_brand($brand_id){
-        $sql = "SELECT * FROM int_brand WHERE brand_id = $brand_id";
-        $query = $this->db->query($sql);
-        $result = $query->first_row();
 
-        return $result;
-    }                       
+    public function edit_inventory($id)
+    {
+        $sql = "SELECT * FROM purchase_items WHERE id=$id";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+        return $row;
+    }
+
                         
 }
 

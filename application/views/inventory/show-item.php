@@ -47,7 +47,6 @@
                     <th>Item ID</th>
                     <th>Catogery</th>
                     <th>Brand</th>
-                    <th>Filter Range</th>
                     <!--
                     <th>Stock</th>
                     <th>Unit Price</th>-->
@@ -78,19 +77,6 @@
                             echo $item_brand->brand;
                           ?>
                         </td>
-                        <td>
-                          <?php
-                          if ($item->filter_range == "") {
-                            echo "";
-                          }
-                          else{
-                            $item_filter_range = $this->Inventory_model->filter_range($item->filter_range);
-                            echo $item_filter_range->filter_range;
-                          }
-                            
-                          ?>
-                        </td>
-
                         <!--
                         <td id="stock_<?php echo $item->item_id; ?>"><?php echo $item->stock; ?></td>
                         <td id="price_<?php echo $item->item_id; ?>"><?php echo $item->price; ?></td>

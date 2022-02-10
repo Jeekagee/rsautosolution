@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <a href="<?php echo base_url(); ?>Report/Inventory">
+                    <a href="<?php echo base_url(); ?>Report/InvReport">
                     <div class="text-center report-cart" style="background-color:#FF865E;">
                         INVENTORY
                     </div>

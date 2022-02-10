@@ -77,6 +77,16 @@ class Purchase_model extends CI_Model
         $this->db->insert('purchase_items', $data);
     }
 
+    public function insert_int_qty($item,$quantity,$purchase_id){
+        $data = array(
+            'item_id' => $item,
+            'purchase_id' => $purchase_id,
+            'qty' => $quantity,
+        );
+
+        $this->db->insert('int_qty', $data);
+    }
+
     public function last_purchase(){
         $sql = "SELECT * FROM purchase ORDER BY created_at DESC LIMIT 1";
         $query = $this->db->query($sql);

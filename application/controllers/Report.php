@@ -35,6 +35,54 @@ class Report extends CI_Controller
         }
   }
 
+  public function InvReport(){
+    $data['page_title'] = 'Inventory Report';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+    $data['inventory'] = $this->Report_model->inventory();
+
+        $data['nav'] = "Report";
+        $data['subnav'] = "AddReport";
+
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('reports/inventory_report',$data);
+    $this->load->view('reports/footer');
+  }
+
+  public function delete(){
+    $id =  $this->input->post('id');
+    $this->Report_model->delete_item($id); //29
+  }
+
+  public function edit(){
+    $expense_id =  $this->uri->segment('3');
+    $data['page_title'] = 'Edit Inventory';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+    //Total Expenses for this month
+    $data['total_expense'] = $this->Expense_model->total_expense(); //16
+
+    //Expense data
+    $data['expenses'] = $this->Expense_model->edit_expense($expense_id); //35
+
+    //Item Catogiries
+    $data['catogories'] = $this->Inventory_model->item_catogories();
+
+    $data['location'] = $this->Orders_model->locations();
+
+    $data['nav'] = "Expense";
+  $data['subnav'] = "Expenses";
+
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('expense/edit-expense',$data);
+    $this->load->view('expense/footer',$data);
+  }
   public function index()
   {
         $data['page_title'] = 'Reports';
@@ -76,33 +124,6 @@ class Report extends CI_Controller
         $this->load->view('reports/order_report',$data);
         $this->load->view('orders/footer');
   }
-
-  public function Inventory()
-    {
-        
-      
-
-    $data['page_title'] = 'Items';
-    //Logged User
-    $data['username'] = $this->Dashboard_model->username();
-    // itme List
-    $data['items'] = $this->Report_model->show_items($cat_id);
-    //Item Catogiries
-    $data['catogories'] = $this->Report_model->item_catogories();
-
-    $data['pending_count'] = $this->Dashboard_model->pending_count();
-    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
-
-    $data['nav'] = "Inventory";
-    $data['subnav'] = "Show Items";
-
-    $this->load->view('dashboard/layout/header',$data);
-    $this->load->view('dashboard/layout/aside',$data);
-    //$this->load->view('aside',$data);
-    $this->load->view('report/show-item',$data);
-    //$this->load->view('footer');
-    $this->load->view('inventory/footer');
-    }
 
   public function Finance()
   {

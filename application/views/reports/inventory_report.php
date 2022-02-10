@@ -7,83 +7,48 @@
     <section id="main-content">
       <section class="wrapper">
         <h3>Inventory Report</h3>
-        <div id="delete_msg">
-          <?php
-            if ($this->session->flashdata('message')) {
-              echo $this->session->flashdata('message');
-            }
-          ?>
+        <div id="delete_msg"><?php
+          if ($this->session->flashdata('delete')) {
+            echo $this->session->flashdata('delete');
+          }
+        ?>
         </div>
-            <div style="margin-bottom: 10px;" >
-                <div class="row">
-                    <div class="col-md-2">
-                        <select id="main_catogery" onchange="location = this.value;" class="form-control" style="width:150px;">
-                            <?php
-                            echo "<option value='".base_url()."Report/Inventory'>All</option>";
-                            foreach ($catogories as $catogery) {
-                              if ($item_catogery->catogery == $catogery->catogery) {
-                                $select = "selected";
-                              }
-                              else{
-                                $select = "";
-                              }
-                                echo "<option $select value='".base_url()."Report/Inventory/$catogery->cat_id'>$catogery->catogery</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        <div class="row mb">
             
+        <div class="row mb" style="padding:10px;">
           <!-- page start-->
-          <div class="content-panel" style="padding:20px 20px 2px 20px;">
+          <div class="content-panel" >
             <div class="adv-table">
               <table class="table table-hover table-bordered" id="hidden-table-info">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Item ID</th>
-                    <th>Category</th>
-                    <th>Total Count</th>
-                    <!--
-                    <th>Stock</th>
-                    <th>Unit Price</th>-->
-                    <th>Action</th>
+                    <th class="text-center">Item Id</th>
+                    <th class="text-center">Item Name</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Purchase Price</th>
+                    <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-                  // Load Model to get Catogery
-                  $CI =& get_instance();
-                  $CI->load->model('Report_model');
+                 $CI =& get_instance();
                   $i =1;
-                  foreach ($items as $item){
+                  foreach ($inventory as $inv){
+                    $item_id=$inv->item_id;
+                    $item_name =  $CI->Report_model->item_name($item_id);
                     ?>
-                      <tr>
+                      <tr id="inv<?php echo $inv->id; ?>">
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $item->item_name; ?></td>
-                        <td><?php echo $item->item_id; ?></td>
-                        <td>
-                          <?php 
-                            $item_catogery = $this->Report_model->item_catogery($item->item_catogery);
-                            echo $item_catogery->catogery;
-                          ?>
+                        <td><?php echo $inv->item_id; ?></td>
+                        <td><?php echo $item_name->item_name; ?></td>
+                        <td class="text-center"><?php echo $qty = $inv->quantity; ?></td>
+                        <td class="text-right"><?php echo $price = $inv->purchase_price; ?>.00</td>
+                        <td class="text-center">
+                        <a href="<?php echo base_url(); ?>Report/edit/<?php echo $inv->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a id="<?php echo $inv->id; ?>" class="btn btn-danger btn-xs delete_exp"><i class="fa fa-trash-o "></i></a>
                         </td>
-                        <td>
-                          <?php 
-                            $item_brand = $this->Report_model->item_brand($item->item_brand);
-                            echo $item_brand->brand;
-                          ?>
-                        </td>
-                        
-                        <!--
-                        <td id="stock_<?php echo $item->item_id; ?>"><?php echo $item->stock; ?></td>
-                        <td id="price_<?php echo $item->item_id; ?>"><?php echo $item->price; ?></td>
-                        -->
-                        
                       </tr>
+                     
                     <?php
                     $i++;
                   }
@@ -91,48 +56,9 @@
                 </tbody>
               </table>
             </div>
+
+            
           </div>
-
-          <!-- Update Model Modal -->
-        <div id="modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Update Price & Stocks</h4>
-                </div>
-
-                <form method="post" action="">
-
-                <div class="modal-body">
-                    <div>
-                      <label>Stock</label>
-                    </div>
-                    <div>
-                      <input class="form-control" type="text" name="stock" id="stock">
-                    </div>
-
-                    <div>
-                      <label>Price</label>
-                    </div>
-                    <div>
-                      <input class="form-control" type="text" name="price" id="price">
-                      <input class="form-control" type="hidden" name="item_id" id="item_id">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                  <input type="submit" id="update" name="update" class="btn btn-success" value="Update">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-          <!-- Update Modal -->
           <!-- page end-->
         </div>
         <!-- /row -->

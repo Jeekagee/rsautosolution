@@ -105,7 +105,8 @@ class Purchase extends CI_Controller
               $error = "";
               // If Different in one featre new item
               if ($this->Purchase_model->same_item($s_price,$p_price,$ex_date,$item) == 0) {
-                $this->Purchase_model->insert_purchase_item($item,$quantity,$purchase_id,$s_price,$p_price,$ex_date); //36
+                $this->Purchase_model->insert_purchase_item($item,$quantity,$purchase_id,$s_price,$p_price,$ex_date);
+                $this->Purchase_model->insert_int_qty($item,$quantity,$purchase_id); //80
               }
               else{
                 $this->Purchase_model->update_qty($s_price,$p_price,$ex_date,$item,$quantity);
