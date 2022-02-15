@@ -32,7 +32,18 @@ class Report_model extends CI_Model
         return $row;
     }
 
-                        
+    public function total_qty(){
+        $sql = "SELECT COUNT(item_id), item_name * FROM int_aty GROUP BY qty ORDER BY(item_id) DESC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        
+        return $result;
+    } 
+    function filterData(&$str){ 
+        $str = preg_replace("/\t/", "\\t", $str); 
+        $str = preg_replace("/\r?\n/", "\\n", $str); 
+        if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
+    }                  
 }
 
 

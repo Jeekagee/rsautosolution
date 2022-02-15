@@ -7,6 +7,9 @@
     <section id="main-content">
       <section class="wrapper">
         <h3>Inventory Report</h3>
+                <div align ="right">  
+                     <button name="create_excel" id="create_excel" class="btn btn-success">Excel</button>  
+                </div>
         <div id="delete_msg"><?php
           if ($this->session->flashdata('delete')) {
             echo $this->session->flashdata('delete');
@@ -24,7 +27,7 @@
                     <th>#</th>
                     <th class="text-center">Item Id</th>
                     <th class="text-center">Item Name</th>
-                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Total Quantity</th>
                     <th class="text-center">Purchase Price</th>
                     <th class="text-center">Action</th>
                   </tr>
@@ -45,7 +48,7 @@
                         <td class="text-right"><?php echo $price = $inv->purchase_price; ?>.00</td>
                         <td class="text-center">
                         <a href="<?php echo base_url(); ?>Report/edit/<?php echo $inv->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a id="<?php echo $inv->id; ?>" class="btn btn-danger btn-xs delete_exp"><i class="fa fa-trash-o "></i></a>
+                        
                         </td>
                       </tr>
                      

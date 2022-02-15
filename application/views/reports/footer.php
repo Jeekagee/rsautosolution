@@ -134,7 +134,7 @@
         }
         else{
             $.ajax({
-                url:"<?php echo base_url(); ?>Report/insert_items",
+                url:"<?php echo base_url(); ?>Purchase/insert_items",
                 type:"POST",
                 cache:false,
                 data:{item:item,item_id:item_id,purchase_id:purchase_id,quantity:quantity,p_price:p_price,ex_date:ex_date},

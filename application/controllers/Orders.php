@@ -277,8 +277,8 @@ class Orders extends CI_Controller {
                 $this->Orders_model->update_order_item($bill_no); //554
 
                 // Reduce from purchase items
-                $this->Orders_model->update_quantity($bill_no); //661
-
+                echo $this->Orders_model->update_quantity($bill_no); //661
+                die();
 
                 //Reminder Table
                 if ($this->Orders_model->reminder_available($vehicle_no,$contact_no) > 0) {

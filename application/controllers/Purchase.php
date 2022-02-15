@@ -12,6 +12,7 @@ class Purchase extends CI_Controller
       $data['username'] = $this->Dashboard_model->username();
       //Load Model
       $this->load->model('Purchase_model');
+      $this->load->model('Orders_model');
       //Already logged In
       if (!$this->session->has_userdata('user_id')) {
           redirect('/LoginController/logout');
@@ -106,7 +107,9 @@ class Purchase extends CI_Controller
               // If Different in one featre new item
               if ($this->Purchase_model->same_item($s_price,$p_price,$ex_date,$item) == 0) {
                 $this->Purchase_model->insert_purchase_item($item,$quantity,$purchase_id,$s_price,$p_price,$ex_date);
-                $this->Purchase_model->insert_int_qty($item,$quantity,$purchase_id); //80
+                // last purchase item id
+                $id=$this->Orders_model->last_purchase_item();
+                $this->Purchase_model->insert_int_qty($item,$quantity,$id); //80
               }
               else{
                 $this->Purchase_model->update_qty($s_price,$p_price,$ex_date,$item,$quantity);

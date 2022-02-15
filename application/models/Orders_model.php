@@ -497,7 +497,7 @@ class Orders_model extends CI_Model
 
     public function items(){
         $sql = "SELECT * FROM purchase_items
-        INNER JOIN int_items ON int_items.item_id = purchase_items.item_id";
+        INNER JOIN int_items ON int_items.item_id = purchase_items.item_id ORDER BY int_items.item_name";
 
         //$sql = "SELECT * FROM purchase_items WHERE item_id IN (SELECT item_id FROM int_items)";
         $query = $this->db->query($sql);
@@ -668,14 +668,21 @@ class Orders_model extends CI_Model
             $new_qty = $old_qty - $qty;
 
             $data = array(
-            'quantity' => $new_qty
+            'qty' => $new_qty
             );
             
-            $this->db->where('id', $p_id);
-            $this->db->update('purchase_items', $data);
+            $this->db->where('purchase_id', $p_id);
+            $this->db->update('int_qty', $data);
         }
     }
+    //last purchase item id
+    public function last_purchase_item(){
+        $sql = "SELECT id FROM purchase_items ORDER BY created_at DESC LIMIT 1";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
 
+        return $row->id;   
+    }
     public function get_item_id($p_id){
         $sql = "SELECT * FROM purchase_items WHERE id = $p_id";
         $query = $this->db->query($sql);
