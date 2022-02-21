@@ -6,19 +6,13 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
-        <h3>Inventory Report</h3>
-        <div align="right">
-            <form method="post" action="<?php echo base_url(); ?>Report/action">
-            <input type="submit" name="export" class="btn btn-success" value="Export" />
-            </form>
-          </div>
+        <h3>Purchase Summary</h3>
         <div id="delete_msg"><?php
           if ($this->session->flashdata('delete')) {
             echo $this->session->flashdata('delete');
           }
         ?>
         </div>
-            
         <div class="row mb" style="padding:10px;">
           <!-- page start-->
           <div class="content-panel" >
@@ -27,31 +21,33 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th class="text-center">Item Id</th>
-                    <th class="text-center">Item Name</th>
-                    <th class="text-center">Total Quantity</th>
+                    <th class="text-center">Item</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Purchase Price</th>
+                    <th class="text-center">Total</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-                 $CI =& get_instance();
+                    $CI =& get_instance();
+                
                   $i =1;
-                  foreach ($inventory as $inv){
-                    $item_id=$inv->item_id;
+                  foreach ($purchase_summary as $pur){
+                    $item_id=$pur->item_id;
                     $item_name =  $CI->Report_model->item_name($item_id);
                     ?>
-                      <tr id="inv<?php echo $inv->id; ?>">
+                      <tr id="pur<?php echo $pur->id; ?>">
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $inv->item_id; ?></td>
-                        <td><?php echo $item_name->item_name; ?></td>
-                        <td class="text-center"><?php echo $qty = $inv->totalqty; ?></td>
+                        <td><?php echo $pur->item_id; ?></td>
+                        <td class="text-center"><?php echo $qty = $pur->quantity; ?></td>
+                        <td class="text-right"><?php echo $price = $pur->purchase_price; ?>.00</td>
+                        <td class="text-right"><?php echo $qty*$price; ?>.00</td>
                         <td class="text-center">
-                        <a href="<?php echo base_url(); ?>Report/edit/<?php echo $inv->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                          
                         
                         </td>
                       </tr>
-                     
                     <?php
                     $i++;
                   }

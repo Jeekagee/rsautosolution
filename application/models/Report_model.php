@@ -5,11 +5,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Report_model extends CI_Model 
 {
     public function inventory(){
-        $sql = "SELECT * FROM purchase_items";
+        $sql = "SELECT id, item_id, purchase_id, SUM(qty) as totalqty FROM int_qty WHERE item_id  IN (SELECT item_id FROM int_items) GROUP BY item_id";
         $query = $this->db->query($sql);
         $result = $query->result();
 
         return $result;
+    }
+
+    function fetch_data()
+    {
+    $this->db->order_by("item_id", "DESC");
+    $query = $this->db->get("int_qty");
+    return $query->result();
+    }
+
+    public function purchase_summary(){
+        $sql = "SELECT id, item_id, purchase_price, quantity FROM purchase_items ORDER BY item_id DESC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
+    public function expense_report(){
+        $sql = "SELECT id, location, payee_name, description, amount FROM expense ORDER BY payee_name DESC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
+    public function data_transfer(){
+        $sql = "SELECT id, item_id, quantity FROM purchase_items";
+        $query = $this->db->query($sql);
+        //$result = $query->num_rows();
+        $result = $query->result();
+        foreach ($result as $i) {
+            $data = array(
+                'purchase_id' => $i->id,
+                'item_id' => $i->item_id,
+                'qty' => $i->quantity,
+            );
+    
+            $this->db->insert('int_qty', $data);
+            # code...
+        }
     }
 
     public function item_name($item_id){

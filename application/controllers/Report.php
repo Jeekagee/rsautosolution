@@ -33,7 +33,48 @@ class Report extends CI_Controller
         if (!$this->session->has_userdata('user_id')) {
             redirect('/LoginController/logout');
         }
+   }
+  // public function datatransfer()
+  // {
+  //   $this->Report_model->data_transfer();
+  // }
+
+ function action()
+ {
+  $this->load->model("Report_model");
+  $this->load->library("excel");
+  $object = new PHPExcel();
+
+  $object->setActiveSheetIndex(0);
+
+  $table_columns = array("Item Id", "Item Name", "Total Quantity");
+
+  $column = 0;
+
+  foreach($table_columns as $field)
+  {
+   $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+   $column++;
   }
+
+  $inventory = $this->Report_model->fetch_data();
+
+  $excel_row = 2;
+
+  foreach($inventory as $row)
+  {
+   $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->item_id);
+   $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->item_name);
+   $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->qty);
+   $excel_row++;
+  }
+
+  $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+  header('Content-Type: application/vnd.ms-excel');
+  header('Content-Disposition: attachment;filename="Employee Data.xls"');
+  $object_writer->save('php://output');
+ } 
+
 
   public function InvReport(){
     $data['page_title'] = 'Inventory Report';
@@ -123,6 +164,40 @@ class Report extends CI_Controller
         //$this->load->view('aside',$data);
         $this->load->view('reports/order_report',$data);
         $this->load->view('orders/footer');
+  }
+
+  public function PurchaseSummary(){
+    $data['page_title'] = 'Purchase Summary';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+    $data['purchase_summary'] = $this->Report_model->purchase_summary();
+
+        $data['nav'] = "Report";
+        $data['subnav'] = "AddReport";
+
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('reports/purchase_summary',$data);
+    $this->load->view('reports/footer');
+  }
+
+  public function ExpenseReport(){
+    $data['page_title'] = 'Expense Report';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+    $data['expense_report'] = $this->Report_model->expense_report();
+
+        $data['nav'] = "Report";
+        $data['subnav'] = "AddReport";
+
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('reports/expense_report',$data);
+    $this->load->view('reports/footer');
   }
 
   public function Finance()
