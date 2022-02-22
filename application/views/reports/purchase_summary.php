@@ -44,7 +44,7 @@
                         <td class="text-right"><?php echo $price = $pur->purchase_price; ?>.00</td>
                         <td class="text-right"><?php echo $qty*$price; ?>.00</td>
                         <td class="text-center">
-                          
+                        <a href="<?php echo base_url(); ?>Report/edit/<?php echo $pur->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                         
                         </td>
                       </tr>

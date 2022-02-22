@@ -106,15 +106,13 @@ class Report extends CI_Controller
     $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
     //Total Expenses for this month
-    $data['total_expense'] = $this->Expense_model->total_expense(); //16
+    $data['item_id'] = $this->Report_model->item_id(); //16
 
     //Expense data
-    $data['expenses'] = $this->Expense_model->edit_expense($expense_id); //35
+    $data['item_name'] = $this->Report_model->item_name(); //35
 
     //Item Catogiries
-    $data['catogories'] = $this->Inventory_model->item_catogories();
-
-    $data['location'] = $this->Orders_model->locations();
+    $data['qty'] = $this->Report_model->item_catogories();
 
     $data['nav'] = "Expense";
   $data['subnav'] = "Expenses";
