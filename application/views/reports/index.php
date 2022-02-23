@@ -45,6 +45,7 @@
                     </a>
                 </div>
                 <div class="col-md-4">
+                    <a href="<?php echo base_url(); ?>Report/ExpenseReport">
                     <div class="text-center report-cart" style="background-color:#1DB9C3;">
                         EXPENSE
                     </div>
@@ -70,7 +71,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                <a href="<?php echo base_url(); ?>Report/Purchase">
+                <a href="<?php echo base_url(); ?>Report/PurchaseSummary">
                         <div class="text-center report-cart" style="background-color:#F8485E;">
                             PURCHASE
                         </div>
