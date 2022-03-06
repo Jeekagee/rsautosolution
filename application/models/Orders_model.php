@@ -396,7 +396,7 @@ class Orders_model extends CI_Model
         $sql = "SELECT * FROM orders WHERE order_id = $order_id";
         $query = $this->db->query($sql);
         $row = $query->first_row();
-
+                    
         return $row;
     }
 

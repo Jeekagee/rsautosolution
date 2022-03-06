@@ -12,12 +12,13 @@ class Report_model extends CI_Model
         return $result;
     }
 
-    function fetch_data()
-    {
-    $this->db->order_by("item_id", "DESC");
-    $query = $this->db->get("int_qty");
-    return $query->result();
-    }
+    public function invList() {
+		$this->db->select(array('id', 'item_id', 'item_name', 'qty'));
+		$this->db->from('int_qty');
+		$this->db->limit(10);  
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 
     public function purchase_summary(){
         $sql = "SELECT id, item_id, purchase_price, quantity FROM purchase_items ORDER BY item_id DESC";
@@ -28,7 +29,7 @@ class Report_model extends CI_Model
     }
 
     public function expense_report(){
-        $sql = "SELECT id, location, payee_name, description, amount FROM expense ORDER BY payee_name DESC";
+        $sql = "SELECT id, ex_date, location, payee_name, description, method, amount FROM expense ORDER BY payee_name DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
 

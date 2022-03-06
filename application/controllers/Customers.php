@@ -115,7 +115,7 @@ class Customers extends CI_Controller {
                 }
                
               $user = "94770280956";
-              $password = "1234";
+              $password = "1624";
               $text = urlencode($msg);
               $to = $numbers;
                

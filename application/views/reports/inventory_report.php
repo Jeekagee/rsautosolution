@@ -7,11 +7,6 @@
     <section id="main-content">
       <section class="wrapper">
         <h3>Inventory Report</h3>
-        <div align="right">
-            <form method="post" action="<?php echo base_url(); ?>Report/action">
-            <input type="submit" name="export" class="btn btn-success" value="Export" />
-            </form>
-          </div>
         <div id="delete_msg"><?php
           if ($this->session->flashdata('delete')) {
             echo $this->session->flashdata('delete');
@@ -30,7 +25,6 @@
                     <th class="text-center">Item Id</th>
                     <th class="text-center">Item Name</th>
                     <th class="text-center">Total Quantity</th>
-                    <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -46,10 +40,6 @@
                         <td><?php echo $inv->item_id; ?></td>
                         <td><?php echo $item_name->item_name; ?></td>
                         <td class="text-center"><?php echo $qty = $inv->totalqty; ?></td>
-                        <td class="text-center">
-                        <a href="<?php echo base_url(); ?>Report/edit/<?php echo $inv->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                        
-                        </td>
                       </tr>
                      
                     <?php
@@ -71,4 +61,15 @@
     <!-- /MAIN CONTENT -->
     <!--main content end-->
   </section>
+
+  <script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+           'excel'
+        ]
+    } );
+} );
+</script>
   

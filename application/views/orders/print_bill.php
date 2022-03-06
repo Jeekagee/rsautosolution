@@ -15,38 +15,40 @@
         { 
             font-weight: bold;
             height:140mm;
-            width: 220mm;
             padding : 15px;
+            padding-top : 0px;
         }
 
         .tbl-bor{
             border: 1.5px solid black;
+            padding-left : 5px;
         }
-
+        
+        
     </style>
 </head>
 <body>
 
-<div style="margin-top:15mm;">
-    <h3 class="text-center">INVOICE</h3>
+<div style="margin-top:0.1mm; letter-spacing:6px;">
+    <h3 class="text-center" style="padding-right: 80px; line-height: 1; font-size: 1rem; font-family: auto;">INVOICE</h3>
     <div>
-        <table class="table tbl-bor">
+        <table class="table tbl-bor" style="width:83%; margin-bottom: 0.5rem;">
             <tr>
-                <td class="text-left" style="width:53.25mm; font-size:15px;">
+                <td class="text-left" style="width:50.25mm; font-size:8px; padding-top:0px; padding-bottom:0px;">
                     <div>
-                        <img src="<?php echo base_url(); ?>assets/img/aclogo.png" style="height:100px">
-                        <p style="line-height:20px;">
+                        <img src="<?php echo base_url(); ?>assets/img/aclogo.png" style="height:60px;">
+                        <p style="line-height:15px; letter-spacing:4px; margin-bottom: 0rem; font-family: auto;">
                             A9 Road, Nochimoddai<br>
                             Vavuniya.<br>
                             Tel : 024 222 9192
                         </p>
                     </div>
                 </td>
-                <td style="width:73.25mm">
+                <td style="width:70.25mm">
                     
                 </td>
                 
-                <td class="text-left" style="width:73.25mm; vertical-align:bottom; font-size:15px;">
+                <td class="text-left" style="width:70.25mm; vertical-align:bottom; font-size:8px; letter-spacing:4px; padding-bottom:0px; font-family: auto;">
                         <div>
                             <p>
                                 Date: <?php echo $basic->bill_date; ?><br>
@@ -62,14 +64,14 @@
         </table>
     </div>
 
-    <div style:padding:20px;>
+    <div style="padding-right:5px; letter-spacing:4px; font-size:8px;font-family: auto;">
         <table>
             <thead style="heigh:30px;" class="text-center tbl-bor">
-                <th style="width:15mm;" class="tbl-bor">No</th>
-                <th style="width:150mm;" class="tbl-bor">Service/Item</th>
-                <th style="width:15mm;" class="tbl-bor">Qty</th>
-                <th style="width:40mm;" class="tbl-bor">Unit Price</th>
-                <th style="width:40mm;" class="tbl-bor">Amount</th>
+                <th style="width:25mm;" class="tbl-bor">No</th>
+                <th style="width:85mm;" class="tbl-bor">Service/Item</th>
+                <th style="width:25mm;" class="tbl-bor">Qty</th>
+                <th style="width:52mm;" class="tbl-bor">Unit Price</th>
+                <th style="width:50mm;" class="tbl-bor">Amount</th>
             </thead>
 
             <?php
@@ -77,7 +79,7 @@
                 $total_price = 0;
                 foreach ($services as $ser) {
                     ?>
-                    <tr class="tbl-bor" style="height:8mm;">
+                    <tr class="tbl-bor" style="height:0mm; font-size: 8px;font-family: auto;">
                         <td class="tbl-bor text-center"><?php echo $i; ?></td>
                         <td class="tbl-bor text-left"><?php echo $ser->service; ?></td>
                         <td class="tbl-bor text-center"></td>
@@ -92,7 +94,7 @@
 
                 foreach ($items as $itm) {
                     ?>
-                    <tr style="height:8mm;">
+                    <tr style="height:0mm; padding-left:6px; font-size: 8px;font-family: auto;">
                         <td class="tbl-bor text-center"><?php echo $i; ?></td>
                         <td class="tbl-bor text-left"><?php echo $itm->item_name; ?></td>
                         <td class="tbl-bor text-center"><?php echo $qty = $itm->qty; ?></td>
@@ -105,21 +107,21 @@
                     $total_price = $total_price+$itm_amount;
                 }
             ?>
-            <tr style="height:5mm;">
+            <tr style="height:0mm; font-size: 8px;font-family: auto;">
                 <td class="text-center"></td>
                 <td class="text-left"></td>
                 <td class="text-center"></td>
                 <td class="text-right">Sub Total</td>
                 <td class="text-right">Rs.<?php echo $total_price; ?>.00</td>
             </tr>
-            <tr style="height:5mm;">
+            <tr style="height:0mm; font-size: 8px;font-family: auto;">
                 <td class="text-center"></td>
                 <td class="text-left"></td>
                 <td class="text-center"></td>
                 <td class="text-right">Discount</td>
                 <td class="text-right">Rs.<?php echo $discount = $basic->discount; ?>.00</td>
             </tr>
-            <tr style="height:5mm;">
+            <tr style="height:0mm; font-size: 8px;font-family: auto;">
                 <td class="text-center"></td>
                 <td class="text-left"></td>
                 <td class="text-center"></td>

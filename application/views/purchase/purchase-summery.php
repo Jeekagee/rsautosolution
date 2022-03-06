@@ -13,9 +13,9 @@
           }
         ?>
         </div>
-        <form method="post" action="">
-          <input type="submit" name="submit" value="Export" />
-        </form>
+        <div style="margin-bottom: 10px;" >
+                <a href="<?php echo base_url(); ?>Purchase/AddNew" class="btn btn-success"><i class="fa fa-plus"></i> Add New</a>
+            </div>
         <div class="row mb" style="padding:10px;">
           <!-- page start-->
           <div class="content-panel" >

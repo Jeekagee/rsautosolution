@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 /**
  *
  * Controller Report
@@ -34,47 +34,6 @@ class Report extends CI_Controller
             redirect('/LoginController/logout');
         }
    }
-  // public function datatransfer()
-  // {
-  //   $this->Report_model->data_transfer();
-  // }
-
- function action()
- {
-  $this->load->model("Report_model");
-  $this->load->library("excel");
-  $object = new PHPExcel();
-
-  $object->setActiveSheetIndex(0);
-
-  $table_columns = array("Item Id", "Item Name", "Total Quantity");
-
-  $column = 0;
-
-  foreach($table_columns as $field)
-  {
-   $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-   $column++;
-  }
-
-  $inventory = $this->Report_model->fetch_data();
-
-  $excel_row = 2;
-
-  foreach($inventory as $row)
-  {
-   $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->item_id);
-   $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->item_name);
-   $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->qty);
-   $excel_row++;
-  }
-
-  $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-  header('Content-Type: application/vnd.ms-excel');
-  header('Content-Disposition: attachment;filename="Employee Data.xls"');
-  $object_writer->save('php://output');
- } 
-
 
   public function InvReport(){
     $data['page_title'] = 'Inventory Report';
@@ -87,10 +46,10 @@ class Report extends CI_Controller
         $data['nav'] = "Report";
         $data['subnav'] = "AddReport";
 
-    $this->load->view('dashboard/layout/header',$data);
-    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('dashboard/layout/header_items',$data);
+    $this->load->view('dashboard/layout/aside_items',$data);
     $this->load->view('reports/inventory_report',$data);
-    $this->load->view('reports/footer');
+    $this->load->view('reports/footer_view');
   }
 
   public function delete(){
@@ -105,22 +64,22 @@ class Report extends CI_Controller
     $data['pending_count'] = $this->Dashboard_model->pending_count();
     $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
-    //Total Expenses for this month
+    //item_id
     $data['item_id'] = $this->Report_model->item_id(); //16
 
-    //Expense data
     $data['item_name'] = $this->Report_model->item_name(); //35
+    $data['purchase_id'] = $this->Report_model->purchase_id();
 
-    //Item Catogiries
-    $data['qty'] = $this->Report_model->item_catogories();
+    //Total quantity
+    $data['qty'] = $this->Report_model->qty();
 
-    $data['nav'] = "Expense";
-  $data['subnav'] = "Expenses";
+    $data['nav'] = "Report";
+  $data['subnav'] = "AddReport";
 
     $this->load->view('dashboard/layout/header',$data);
     $this->load->view('dashboard/layout/aside',$data);
-    $this->load->view('expense/edit-expense',$data);
-    $this->load->view('expense/footer',$data);
+    $this->load->view('reports/inventory_report',$data);
+    $this->load->view('reports/footer');
   }
   public function index()
   {

@@ -21,11 +21,12 @@
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>Date</th>
                     <th>Location</th>
                     <th>Payee</th>
                     <th>Description</th>
+                    <th>Payment Method</th>
                     <th>Amount</th>
-                    <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -35,14 +36,12 @@
                     ?>
                       <tr id="exp<?php echo $expense->id; ?>">
                         <td><?php echo $i; ?></td>
+                        <td><?php echo $expense->ex_date; ?></td>
                         <td><?php echo $expense->location; ?></td>
                         <td><?php echo $expense->payee_name; ?></td>
                         <td><?php echo $expense->description; ?></td>
+                        <td><?php echo $expense->method; ?></td>
                         <td><?php echo $expense->amount; ?></td>
-                        <td class="text-center">
-                          <a href="<?php echo base_url(); ?>Report/edit/<?php echo $expense->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                          
-                        </td>
                       </tr>
                     <?php
                     $i++;
