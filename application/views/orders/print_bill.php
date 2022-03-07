@@ -36,8 +36,8 @@
             <tr>
                 <td class="text-left" style="width:50.25mm; font-size:8px; padding-top:0px; padding-bottom:0px;">
                     <div>
-                        <img src="<?php echo base_url(); ?>assets/img/aclogo.png" style="height:60px;">
-                        <p style="line-height:15px; letter-spacing:4px; margin-bottom: 0rem; font-family: auto;">
+                        <img src="<?php echo base_url(); ?>assets/img/aclogo.png" style="height:50px;">
+                        <p style="line-height:12px; letter-spacing:4px; margin-bottom: 0rem; font-family: auto;">
                             A9 Road, Nochimoddai<br>
                             Vavuniya.<br>
                             Tel : 024 222 9192
