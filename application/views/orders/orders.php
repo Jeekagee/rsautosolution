@@ -76,7 +76,8 @@
                           <?php
                             $services =  $CI->Orders_model->order_service($bill_no); //486
                             $items =  $CI->Orders_model->order_item($bill_no); //530
-                            
+                            $other_services =  $CI->Orders_model->other_service($bill_no);
+
                             $service_total = 0;
                             foreach ($services as $ser) {
                               $service_total = $service_total+$ser->amount;
@@ -84,10 +85,14 @@
 
                             $item_total = 0;
                             foreach ($items as $itm) {
-                              
                               $item_total = $item_total+($itm->amount*$itm->qty);
                             }
-                            echo $total = $service_total+$item_total;
+
+                            $other_services_total = 0;
+                            foreach ($other_services as $other) {
+                              $other_services_total = $other_services_total+$other->amount;
+                            }
+                            echo $total = $service_total+$item_total+$other_services_total;
                           ?>
                         .00</td>
                         <td class="text-right"><?php echo $discount = $order->discount; ?>.00</td>

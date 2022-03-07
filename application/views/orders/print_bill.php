@@ -106,6 +106,21 @@
                     $i++;
                     $total_price = $total_price+$itm_amount;
                 }
+
+                foreach ($other_services as $other) {
+                    ?>
+                    <tr class="tbl-bor" style="height:0mm; font-size: 8px;font-family: auto;">
+                        <td class="tbl-bor text-center"><?php echo $i; ?></td>
+                        <td class="tbl-bor text-left"><?php echo $other->service; ?></td>
+                        <td class="tbl-bor text-center"></td>
+                        <td class="tbl-bor text-center"></td>
+                        <td class="tbl-bor text-right"><?php echo $other_amount=$other->amount; ?>.00</td>
+                    </tr>
+                    <?php
+
+                    $i++;
+                    $total_price = $total_price+$other_amount;
+                }
             ?>
             <tr style="height:0mm; font-size: 8px;font-family: auto;">
                 <td class="text-center"></td>

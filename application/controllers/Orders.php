@@ -310,6 +310,7 @@ class Orders extends CI_Controller {
     public function printBill($bill_no){
         $data['basic'] = $this->Orders_model->order_data($bill_no);
         $data['services'] = $this->Orders_model->order_service($bill_no);
+        $data['other_services'] = $this->Orders_model->other_service($bill_no);
         $data['items'] = $this->Orders_model->order_item($bill_no);
         $this->load->view('orders/print_bill',$data);
     }
@@ -318,6 +319,7 @@ class Orders extends CI_Controller {
         $bill_no =  $this->uri->segment('3');
         $data['basic'] = $this->Orders_model->order_data($bill_no);
         $data['services'] = $this->Orders_model->order_service($bill_no);
+        $data['other_services'] = $this->Orders_model->other_service($bill_no);
         $data['items'] = $this->Orders_model->order_item($bill_no);
         $this->load->view('orders/print_bill',$data);
     }
