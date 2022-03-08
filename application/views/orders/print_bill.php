@@ -24,7 +24,11 @@
             padding-left : 5px;
         }
         
-        
+        .blank_row
+        {
+            height: 30px !important; 
+            background-color: #FFFFFF;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +94,15 @@
 
                     $i++;
                     $total_price = $total_price+$ser_amount;
+
+                    if($i == 9)
+                    {
+                    ?>
+                        <tr class="blank_row">
+                            <td colspan="5"></td>
+                        </tr>
+                    <?php
+                    }
                 }
 
                 foreach ($items as $itm) {
@@ -105,6 +118,15 @@
 
                     $i++;
                     $total_price = $total_price+$itm_amount;
+
+                    if($i == 9)
+                    {
+                    ?>
+                        <tr class="blank_row">
+                            <td colspan="5"></td>
+                        </tr>
+                    <?php
+                    }
                 }
 
                 foreach ($other_services as $other) {
@@ -120,6 +142,15 @@
 
                     $i++;
                     $total_price = $total_price+$other_amount;
+
+                    if($i == 9)
+                    {
+                    ?>
+                        <tr class="blank_row">
+                            <td colspan="5"></td>
+                        </tr>
+                    <?php
+                    }
                 }
             ?>
             <tr style="height:0mm; font-size: 8px;font-family: auto;">
