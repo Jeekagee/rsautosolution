@@ -185,7 +185,15 @@ class Purchase_model extends CI_Model
         $row = $query->first_row();
         return $row;
     }
-    
+    public function update_sellingprice($id,$price)
+    {
+        $data = array(
+            'selling_price' => $price
+        );
+        
+        $this->db->where('id', $id);
+        $this->db->update('purchase_items', $data);
+    }
                         
 }
 

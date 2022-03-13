@@ -256,8 +256,8 @@ class Orders_model extends CI_Model
             'contact_no' => $contact_no
         );
         
-        $this->db->where('order_id', $order_id);
-        $this->db->update('orders', $data);
+        // $this->db->where('order_id', $order_id);
+        // $this->db->update('orders', $data);
     }
 
 
@@ -522,11 +522,10 @@ class Orders_model extends CI_Model
         return $row;
     }
 
-    public function insert_order_item($item_id,$bill_no,$qty,$p_id){
+    public function insert_order_item($item_id,$bill_no,$qty,$p_id,$item_amount){
         $item_data = $this->item_data($item_id); //524
-        $purchase_data = $this->purchase_data($p_id); //532
         $item_name =$item_data->item_name;
-        $price = $purchase_data->selling_price;
+        $price = $item_amount;
 
         $data = array(
             'bill_no' => $bill_no,
@@ -797,6 +796,15 @@ class Orders_model extends CI_Model
     public function deleteOtherService($id){
         $sql = "DELETE FROM other_service WHERE id=$id";
         $query = $this->db->query($sql);
+    }
+
+    public function get_item_amount($purchase_id)
+    {
+        $sql = "SELECT * FROM purchase_items WHERE id = $purchase_id LIMIT 1";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+
+        return $row->selling_price;
     }
 
     //End of other Service

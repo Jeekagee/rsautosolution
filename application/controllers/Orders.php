@@ -178,27 +178,27 @@ class Orders extends CI_Controller {
     }
 
     public function do_upload(){
-                $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 3000;
-                $config['max_width']            = 2000;
-                $config['max_height']           = 2000;
-                $config['file_name'] = "order_".$bill_no;
+                // $config['upload_path']          = './uploads/';
+                // $config['allowed_types']        = 'gif|jpg|png';
+                // $config['max_size']             = 3000;
+                // $config['max_width']            = 2000;
+                // $config['max_height']           = 2000;
+                // $config['file_name'] = "order_".$bill_no;
 
-                $this->load->library('upload', $config);
+                // $this->load->library('upload', $config);
 
-                if ( ! $this->upload->do_upload('img'))
-                {
-                        $error = array('error' => $this->upload->display_errors());
+                // if ( ! $this->upload->do_upload('img'))
+                // {
+                //         $error = array('error' => $this->upload->display_errors());
 
-                        $this->load->view('upload_form', $error);
-                }
-                else
-                {
-                        $data = array('upload_data' => $this->upload->data());
+                //         $this->load->view('upload_form', $error);
+                // }
+                // else
+                // {
+                //         $data = array('upload_data' => $this->upload->data());
 
-                        $this->load->view('upload_success', $data);
-                }
+                //         $this->load->view('upload_success', $data);
+                // }
     }
 
     public function validation(){
@@ -530,6 +530,7 @@ class Orders extends CI_Controller {
         }
         $bill_no = $this->input->post('bill_no');
         $qty = $this->input->post('qty');
+        $item_amount = $this->input->post('item_amount');
 
         //insert order service into temperary table
         if ($this->input->post('p_id')) {
@@ -537,7 +538,7 @@ class Orders extends CI_Controller {
                 $this->Orders_model->update_qty($item_id,$bill_no,$qty); //582
             }
             else{
-                $this->Orders_model->insert_order_item($item_id,$bill_no,$qty,$p_id); //503
+                $this->Orders_model->insert_order_item($item_id,$bill_no,$qty,$p_id,$item_amount); //503
             }
             
         }
@@ -600,6 +601,7 @@ class Orders extends CI_Controller {
             
         }
     }
+
 
     public function deleteOrderItem(){
         $id = $this->input->post('id');
@@ -705,6 +707,12 @@ class Orders extends CI_Controller {
     public function deleteOtherService(){
         $id = $this->input->post('id');
         $this->Orders_model->deleteOtherService($id); // 490
+    }
+
+    public function get_item_amount()
+    {
+        $purchase_id = $this->input->post('purchase_id');
+        echo $this->Orders_model->get_item_amount($purchase_id);
     }
 
 }

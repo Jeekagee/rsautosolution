@@ -309,6 +309,14 @@ class Purchase extends CI_Controller
     $this->load->view('purchase/footer',$data);
   }
 
+  public function update_sellingprice()
+  {
+    $id =  $this->input->post('id');
+    $price =  $this->input->post('price');
+    $this->Purchase_model->update_sellingprice($id,$price);
+    redirect('Purchase/Summery');
+  }
+
 
 }
 

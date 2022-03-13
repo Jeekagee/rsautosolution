@@ -13,7 +13,7 @@
           }
         ?>
         </div>
-        <div style="margin-bottom: 10px;" >
+            <div style="margin-bottom: 10px;" >
                 <a href="<?php echo base_url(); ?>Purchase/AddNew" class="btn btn-success"><i class="fa fa-plus"></i> Add New</a>
             </div>
         <div class="row mb" style="padding:10px;">
@@ -58,7 +58,7 @@
                         <td class="text-right"><?php echo $qty*$price; ?>.00</td>
                         <td class="text-center">
                           <a href="<?php echo base_url(); ?>Purchase/view/<?php echo $purchase->id; ?>" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
-                          <a href="<?php echo base_url(); ?>Purchase/edit/<?php echo $purchase_data->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                          <a data-toggle="modal" data-target="#update<?php echo $i; ?>" class="btn btn-primary btn-xs"><i class="fa fa-upload"></i></a>
                           <a id="<?php echo $purchase_data->id; ?>" class="btn btn-danger btn-xs delete_purchase"><i class="fa fa-trash-o "></i></a>
                           <?php
                            /* $CI =& get_instance();
@@ -76,6 +76,45 @@
                           ?>
                         </td>
                       </tr>
+
+                      <!-- Modal -->
+                      <div id="update<?php echo $i; ?>" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Update Selling Price</h4>
+                            </div>
+                            <div class="modal-body">
+                              <form action="<?php echo base_url(); ?>Purchase/update_sellingprice" method="POST">
+                                <div class="form-group">
+                                  <input type="hidden" name="id" class="form-control" value="<?php echo $purchase->id; ?>">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Product ID</label>
+                                  <input type="text" class="form-control" value="<?php echo $purchase->item_id; ?>" readonly>
+                                </div>
+                                <div class="form-group"> 
+                                  <label for="">Puchase Price</label>
+                                  <input type="text" class="form-control" value="<?php echo $price; ?>" readonly>
+                                </div>
+                                <div class="form-group"> 
+                                  <label for="">Selling Price</label>
+                                  <input type="text" name="price" class="form-control" value="<?php echo $purchase->selling_price; ?>">
+                                </div>
+          
+                            </div>
+                            <div class="modal-footer">
+                              <input type="submit" class="btn btn-success" value="Update">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
                     <?php
                     $i++;
                   }

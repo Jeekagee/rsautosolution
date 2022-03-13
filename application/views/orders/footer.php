@@ -143,6 +143,21 @@
         });
       });
 
+      // Load item amount
+      $("#items").change(function(){
+        var purchase_id = $(this).val();
+        $.ajax({
+          url:"<?php echo base_url(); ?>Orders/get_item_amount",
+          type:"POST",
+          cache:false,
+          data:{purchase_id:purchase_id},
+          success:function(data){
+            //alert(data);
+            $("#item_amount").val(data);
+          }
+        });
+      }); 
+
       $("#service").change(function(){
         var ser_id = $(this).val();
         $.ajax({
@@ -249,31 +264,33 @@
         
     });
 
-    // Price for Service
+    // Add items to Order
     $(document).ready(function(){
       $("#add_item").click(function(){
         var p_id = $("#items").val();
         var qty = $("#qty").val();
         var bill_no = $("#bill_no").val();
+        var item_amount = $("#item_amount").val();
 
         if (p_id == "" || qty == "") {
           $("#item_error").html("Please Select a item and Quantity");
         }
+        
         else{
-            $("#item_error").html("");
-            $.ajax({
-              url:"<?php echo base_url(); ?>Orders/Add_item", //565
-              type:"POST",
-              cache:false,
-              data:{p_id:p_id,bill_no:bill_no,qty:qty},
-              success:function(data){
-                //alert(data);
-                $("#item_tbl").html(data);
-                $('#items').val("");
-                $('#submit_btn').show();
-              }
-          });
-        }
+          $("#item_error").html("");
+          $.ajax({
+            url:"<?php echo base_url(); ?>Orders/Add_item", //565
+            type:"POST",
+            cache:false,
+            data:{p_id:p_id,bill_no:bill_no,qty:qty,item_amount:item_amount},
+            success:function(data){
+              //alert(data);
+              $("#item_tbl").html(data);
+              $('#items').val("");
+              $('#submit_btn').show();
+            }
+        });
+      }
       }); 
     });
 

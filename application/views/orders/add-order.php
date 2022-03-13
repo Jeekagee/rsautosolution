@@ -226,7 +226,7 @@
 
                 <div class="form-group">
                   <label class="col-md-4 control-label">Order Items</label>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <select class="form-control" name="items" id="items">
                       <option value="">Select Item</option>
                       <?php
@@ -258,6 +258,11 @@
 
                   <div class="col-md-2">
                     <input type="text" placeholder="Quantity" class="form-control" name="qty" id="qty">
+                    
+                  </div>
+
+                  <div class="col-md-2">
+                    <input type="text" class="form-control" name="item_amount" id="item_amount">
                     
                   </div>
                 </div>
