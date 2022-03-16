@@ -1,4 +1,4 @@
-
+<?php $CI =& get_instance(); ?>
 <style type="text/css">
   .li-style{
     border-bottom: medium;
@@ -230,12 +230,14 @@
                     <select class="form-control" name="items" id="items">
                       <option value="">Select Item</option>
                       <?php
+                      //echo 
                         foreach($items as $item){
                           $id = $item->item_id;
                           $name = $item->item_name;
-                          $qty = $item->quantity;
-                          $p_id = $item->id; // Auto id of purchase
-
+                          //get qunatity from int_qty
+                          $p_id = $item->id;
+                          $qty = $CI->Orders_model->current_qty($p_id);
+                          //$qty = $item->quantity;
                           if ($qty == 0) {
                             $disabled = "disabled";
                           }

@@ -96,8 +96,8 @@ class Orders extends CI_Controller {
         $this->load->view('orders/footer');
     }
 
-    public function edit(){
-        $bill_no =  $this->uri->segment('3');
+    public function edit($bill_no){
+
         $data['page_title'] = 'Edit Order';
         $data['username'] = $this->Dashboard_model->username();
         $data['vehicle_types'] = $this->Orders_model->vehicle_types();
@@ -251,34 +251,13 @@ class Orders extends CI_Controller {
             $bay = implode(",",$this->input->post('bay'));
 
             if ($this->Orders_model->insert_order($vehicle_no,$cus_name,$contact_no,$bill_no,$bill_date,$type,$make,$bay,$discount,$reminder,$ckm,$nkm)) {
-                //Line 104
-                //Image Upload
-                $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 3000;
-                $config['max_width']            = 2000;
-                $config['max_height']           = 2000;
-                $config['file_name'] = "order_".$bill_no;
-
-                $this->load->library('upload', $config);
-
-                if ( ! $this->upload->do_upload('img'))
-                {
-                       
-                }
-                else
-                {
-                        $order_img = $this->upload->data('file_name');
-                        $this->Orders_model->update_img($bill_no,$order_img);
-                }
-               
+                
                 //Confirm Services and Items
                 $this->Orders_model->update_order_service($bill_no); //545
                 $this->Orders_model->update_order_item($bill_no); //554
 
                 // Reduce from purchase items
-                echo $this->Orders_model->update_quantity($bill_no); //661
-                die();
+                $this->Orders_model->update_quantity($bill_no); //661
 
                 //Reminder Table
                 if ($this->Orders_model->reminder_available($vehicle_no,$contact_no) > 0) {

@@ -234,7 +234,7 @@ class Orders_model extends CI_Model
         return $row;
     }
 
-    public function update_order($cus_name,$bill_no,$vehicle_no,$contact_no,$bill_date,$type,$make,$discount){
+    public function update_order($cus_name,$vehicle_no,$contact_no,$bill_no,$bill_date,$type,$make,$discount){
         $data = array(
             'customer_name' => $cus_name,
             'vehicle_no' => $vehicle_no,
@@ -243,7 +243,6 @@ class Orders_model extends CI_Model
             'type' => $type,
             'make' => $make,
             'discount' => $discount
-            
         );
         
         $this->db->where('bill_no', $bill_no);
@@ -641,11 +640,11 @@ class Orders_model extends CI_Model
     }
 
     public function get_last_quantity($p_id){
-        $sql = "SELECT * FROM purchase_items WHERE id = $p_id";
+        $sql = "SELECT * FROM int_qty WHERE purchase_id = $p_id";
         $query = $this->db->query($sql);
         $row = $query->first_row();
 
-        return $row->quantity;
+        return $row->qty;
     }
 
     public function get_order_quantity($bill_no,$p_id){
@@ -807,6 +806,23 @@ class Orders_model extends CI_Model
         return $row->selling_price;
     }
 
-    //End of other Service
+    // to update quantity
+    public function get_item_data($bill_no)
+    {
+        $sql = "SELECT * FROM order_item WHERE bill_no = $bill_no";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
+    public function current_qty($purchase_id)
+    {
+        $sql = "SELECT * FROM int_qty WHERE purchase_id = $purchase_id";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+
+        return $row->qty;
+    }
 }
 
