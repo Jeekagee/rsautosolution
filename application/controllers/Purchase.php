@@ -168,7 +168,91 @@ class Purchase extends CI_Controller
                 </div>
             <?php
   }
+  public function AddSupplier()
+    {
+        $data['page_title'] = 'Add Supplier';
+        //Logged User
+        $data['username'] = $this->Dashboard_model->username();
 
+        $data['pending_count'] = $this->Dashboard_model->pending_count();
+        $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+        $data['location'] = $this->Purchase_model->locations(); 
+
+        $data['nav'] = "Purchase";
+        $data['subnav'] = "Purchase Invoice";
+        
+        $this->load->view('dashboard/layout/header',$data);
+        $this->load->view('dashboard/layout/aside',$data);
+        $this->load->view('purchase/add-supplier',$data);
+        //$this->load->view('footer');
+        $this->load->view('purchase/footer');
+    }
+
+    public function insertSupplier(){
+      $this->form_validation->set_rules('id', 'Supplier ID', 'required|is_unique[supplier.id]');
+      $this->form_validation->set_rules('supplier', 'Supplier Name', 'required');
+      //$this->form_validation->set_rules('location_id', 'Supplier Location', 'required');
+      
+      if ($this->form_validation->run() == FALSE){
+          $this->AddSupplier();
+      }
+      else{
+          $id = $this->input->post('id');
+          $name = $this->input->post('supplier');
+          //$loc = $this->input->post('location_id');
+
+          $this->Purchase_model->insert_supplier($id,$name);
+
+          //Flash Msg
+          $this->session->set_flashdata('delete',"<div class='alert alert-success'> New Employee has been assigned!</div>");
+          
+          // Redirect to Add Purchase
+          redirect('/Purchase/AddNew');
+      }
+  }
+
+  public function AddLocation()
+    {
+        $data['page_title'] = 'Add Location';
+        //Logged User
+        $data['username'] = $this->Dashboard_model->username();
+
+        $data['pending_count'] = $this->Dashboard_model->pending_count();
+        $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+        //$data['location'] = $this->Employees_model->location(); //64
+
+        $data['nav'] = "Purchase";
+        $data['subnav'] = "Purchase Invoice";
+        
+        $this->load->view('dashboard/layout/header',$data);
+        $this->load->view('dashboard/layout/aside',$data);
+        $this->load->view('purchase/add-location',$data);
+        //$this->load->view('footer');
+        $this->load->view('purchase/footer');
+    }
+
+  public function insertLocation(){
+    $this->form_validation->set_rules('id', 'Location ID', 'required|is_unique[location.id]');
+    $this->form_validation->set_rules('location', 'Location Name', 'required');
+    //$this->form_validation->set_rules('emp_loc', 'Employee Location', 'required');
+    
+    if ($this->form_validation->run() == FALSE){
+        $this->AddLocation();
+    }
+    else{
+        $id = $this->input->post('id');
+        $name = $this->input->post('location');
+       // $loc = $this->input->post('emp_loc');
+
+        $this->Purchase_model->insert_location($id,$name);
+
+        //Flash Msg
+        $this->session->set_flashdata('delete',"<div class='alert alert-success'> New Employee has been assigned!</div>");
+        
+        // Redirect to Employees
+        redirect('/Purchase/AddNew');
+    }
+}
   public function show_purchase_items(){
     $purchase_id = $this->input->post('purchase_id');
 

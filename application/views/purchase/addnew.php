@@ -22,6 +22,10 @@
         <h3>Add New Purchase</h3>
 
         <div class="sec-container">
+        <div style="margin-bottom: 10px;" >
+                <a href="<?php echo base_url(); ?>Purchase/AddSupplier" class="btn btn-success"><i class="fa fa-plus"></i> Add Supplier</a>
+                <a href="<?php echo base_url(); ?>Purchase/AddLocation" class="btn btn-success"><i class="fa fa-plus"></i> Add Location</a>
+            </div>
             <div class="mb-5">
                 <h4>Add Purchase</h4>
             </div>

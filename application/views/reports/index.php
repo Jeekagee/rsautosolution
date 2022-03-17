@@ -17,10 +17,10 @@
   }
 
   .report-cart{
-    font-size:30px;
+    font-size:20px;
     padding:50px 0px 50px 0px; 
     color:white;
-    font-weight:900;
+    font-weight:700;
     border-radius: 18px;
     transition: box-shadow .3s;
   }
@@ -37,44 +37,41 @@
 
         <div class="sec-container">
             <div class="row">
-                <div class="col-md-4">
-                    <a href="<?php echo base_url(); ?>AddReport/Order">
-                    <div class="text-center report-cart" style="background-color:#6ECB63;">
-                        ORDER
-                    </div>
+            <div class="col-md-2">
+                <a href="<?php echo base_url(); ?>Report/PurchaseSummary">
+                        <div class="text-center report-cart" style="background-color:#F8485E;">
+                            PURCHASE
+                        </div>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <a href="<?php echo base_url(); ?>Report/ExpenseReport">
                     <div class="text-center report-cart" style="background-color:#1DB9C3;">
                         EXPENSE
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <a href="<?php echo base_url(); ?>Report/InvReport">
                     <div class="text-center report-cart" style="background-color:#FF865E;">
                         INVENTORY
                     </div>
                 </div>
-                
-            </div>
-
-            <div class="row" style="margin-top:20px">
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <a href="<?php echo base_url(); ?>Report/Customer">
                     <div class="text-center report-cart" style="background-color:#7027A0;">
                         CUSTOMER
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="text-center report-cart" style="background-color:#0F52BA;">
                         FINANCE
                     </div>
                 </div>
-                <div class="col-md-4">
-                <a href="<?php echo base_url(); ?>Report/PurchaseSummary">
-                        <div class="text-center report-cart" style="background-color:#F8485E;">
-                            PURCHASE
-                        </div>
+                <div class="col-md-2">
+                    <a href="<?php echo base_url(); ?>AddReport/Order">
+                    <div class="text-center report-cart" style="background-color:#6ECB63;">
+                        ORDER
+                    </div>
                     </a>
                 </div>
             </div>

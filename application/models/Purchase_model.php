@@ -18,8 +18,24 @@ class Purchase_model extends CI_Model
         $result = $query->result();
 
         return $result;
-    }            
+    } 
+    public function insert_supplier($id,$name){
+        $data = array(
+            'id' => $id,
+            'supplier' => $name,
+           // 'location_id' => $loc,
+        );
     
+        $this->db->insert('supplier', $data);
+    }
+    public function insert_location($id,$name){
+        $data = array(
+            'id' => $id,
+            'location' => $name,
+        );
+    
+        $this->db->insert('location', $data);
+    }
     public function insert_purchase($supplier,$rec_date,$location,$notes,$ref_no,$method,$check_date){
         $data = array(
             'supplier' => $supplier,
