@@ -824,5 +824,52 @@ class Orders_model extends CI_Model
 
         return $row->qty;
     }
+
+    // Add qunatity when user remove the order item
+    public function addQty($qty,$purchase_id)
+    {
+       $sql = "UPDATE int_qty SET qty = qty + $qty WHERE purchase_id = $purchase_id";
+       $this->db->query($sql);
+    }
+
+    public function orderData($bill_no)
+    {
+        $sql = "SELECT * FROM orders WHERE bill_no = $bill_no";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+
+        return $row;
+    }
+
+    public function orderSubtotal($bill_no)
+    {
+        $sql = "SELECT * FROM order_item WHERE bill_no = $bill_no";
+        $query = $this->db->query($sql);
+        $order_item = $query->result();
+
+        $total = 0;
+        foreach ($order_item as $item) {
+            $amount = $item->amount*$item->qty;
+            $total = $total+$amount;
+        }
+        
+        $sql_service = "SELECT * FROM order_service WHERE bill_no = $bill_no";
+        $query_service = $this->db->query($sql_service);
+        $order_service = $query_service->result();
+
+        foreach ($order_service as $service) {
+            $total = $total+$service->amount;
+        }
+
+        $sqlother = "SELECT * FROM other_service WHERE bill_no = $bill_no";
+        $queryother = $this->db->query($sqlother);
+        $others = $queryother->result();
+
+        foreach ($others as $other) {
+            $total = $total+$other->amount;
+        }
+
+        return $total;
+    }
 }
 

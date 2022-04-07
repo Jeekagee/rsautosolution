@@ -305,9 +305,7 @@
               //alert(data);
               $("#item_tbl").html(data);
               $('#items').val("");
-              if (data != "") {
-                  ('submit_btn').show();
-              }
+              $('#submit_btn').show();
             }
           });
         

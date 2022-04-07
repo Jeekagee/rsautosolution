@@ -256,6 +256,9 @@ class Orders extends CI_Controller {
                 $this->Orders_model->update_order_service($bill_no); //545
                 $this->Orders_model->update_order_item($bill_no); //554
 
+                // Post resquest to Trakee API
+                $this->trakeeApi($bill_no);
+                
                 // Reduce from purchase items
                 $this->Orders_model->update_quantity($bill_no); //661
 
@@ -284,6 +287,110 @@ class Orders extends CI_Controller {
             }
 
         }
+    }
+
+    public function trakeeApi($bill_no)
+    {
+        $orderTbl = $this->Orders_model->orderData($bill_no);
+        $order_id = $orderTbl->order_id;
+        $subtotal = $this->Orders_model->orderSubtotal($bill_no);
+
+        $order_items = $this->Orders_model->get_order_items($bill_no);
+
+        $order_services = $this->Orders_model->get_order_service($bill_no);
+
+        $other_services = $this->Orders_model->other_service($bill_no);
+
+        // $order_customer = $this->orders_model->orderCustomer($bill_no);
+        
+        // set array
+        $items = array();
+
+        $i = 0;
+        foreach ($order_items as $itm) {
+            $items[$i]['item'] = $itm->item_name;
+            $items[$i]['description'] = 'string';
+            $items[$i]['quantity'] = $itm->qty;
+            $items[$i]['unitPrice'] = $itm->amount;
+            $items[$i]['total'] = $itm->qty*$itm->amount;
+            $items[$i]['tax'] = 'string';
+            $items[$i]['discount'] = '0';
+            $i++;
+        }
+
+        $services = array();
+        $i_ser = 0;
+        foreach ($order_services as $ser) {
+            $services[$i_ser]['name'] = $ser->service;
+            $services[$i_ser]['description'] = 'string';
+            $services[$i_ser]['amount'] = $ser->amount;
+            $services[$i_ser]['discount'] = 0;
+            $services[$i_ser]['tax'] = 'string';
+            $i_ser++;
+        }
+        foreach ($other_services as $oser) {
+            $services[$i_ser]['name'] = $oser->service;
+            $services[$i_ser]['description'] = 'string';
+            $services[$i_ser]['amount'] = $oser->amount;
+            $services[$i_ser]['discount'] = 0;
+            $services[$i_ser]['tax'] = 'string';
+            $i_ser++;
+        }
+
+        
+        $data = array (
+            'token' => 'eyJzdWIiOiJyaXNoaSIsImlhdCI6MTY0OTEzMzIwMn0',
+            'print' => true,
+            'digital' => true,
+            'invoice' => 
+            array (
+              'subject' => 'string',
+              'reference' => $order_id,
+              'invoiceNo' => $bill_no,
+              'note' => 'string',
+              'currencyId' => 'LKR',
+              'subTotal' => $subtotal,
+              'discount' => $discount = $orderTbl->discount,
+              'total' => $subtotal - $discount,
+              'paid' => 1,
+              'receivable' => 'string',
+              'dueDate' => '2022-04-05T14:18:51.222Z',
+              'imageUrl' => 'string',
+              'documentUrl' => 'string',
+              'invoiceItem' => $items,
+              'invoiceService' => $services,
+            ),
+            'customer' => 
+            array (
+              'firstName' => 'string',
+              'lastName' => 'string',
+              'name' => $orderTbl->customer_name,
+              'customerPhone' => '+94'.$orderTbl->contact_no,
+              'address' => 'string',
+              'email' => 'string',
+              'dateOfBirth' => '2022-04-05T14:18:51.223Z',
+              'nickName' => 'string',
+              'civilStatus' => 'string',
+              'imageUrl' => 'string',
+              'vehicleNumber' => 'string',
+              'nic' => 'string',
+            ),
+        );
+
+        $jsondata = json_encode($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,"https://enterprise-stage-api.trakee.com/v1/orders/addOrder");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $jsondata);
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        // Receive server response ...
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+
+        curl_close ($ch);
+
+        echo $server_output;
     }
 
     public function printBill($bill_no){
@@ -527,7 +634,6 @@ class Orders extends CI_Controller {
             $order_item = $this->Orders_model->order_item($bill_no);//531
 
             ?>
-
                 <table class="table table-striped">
                     <thead>
                         <th>Item</th>
@@ -544,7 +650,7 @@ class Orders extends CI_Controller {
                             <tr id="item<?php echo $order_itm->id; ?>">
                                 <td><?php echo $order_itm->item_name; ?></td>
                                 <td class="text-right"><?php echo $order_itm->amount; ?>.00</td>
-                                <td class="text-center"><?php echo $order_itm->qty; ?></td>
+                                <td class="text-center"><?php echo $qty =  $order_itm->qty; ?></td>
                                 <td class="text-right"><?php echo $order_itm->qty*$order_itm->amount; ?>.00</td>
                                 <td class="text-center">
                                     <a class="btn btn-danger delete_item" id="<?php echo $order_itm->id; ?>"><i class="fa fa-trash"></i></a>
@@ -565,11 +671,14 @@ class Orders extends CI_Controller {
                                     type: "POST",
                                     url: "<?php echo base_url(); ?>Orders/deleteOrderItem", //629
                                     data: ({
-                                        id: id
+                                        id: id,
+                                        purchase_id : <?php echo $p_id; ?>,
+                                        qty : <?php echo $qty; ?>,
+                                        status : <?php echo $order_itm->status; ?>
                                     }),
                                     cache: false,
                                     success: function(html) {
-                                        //alert("hi");
+                                        //alert(html);
                                         $("#item" + id).fadeOut('slow');
                                     }
                                 });
@@ -584,7 +693,15 @@ class Orders extends CI_Controller {
 
     public function deleteOrderItem(){
         $id = $this->input->post('id');
+        $purchase_id = $this->input->post('purchase_id');
+        $qty = $this->input->post('qty');
+        $status = $this->input->post('status');
+
         $this->Orders_model->deleteOrderItem($id); // 539
+        // Add quantity into int_qty table again
+        if ($status == 1) {
+            $this->Orders_model->addQty($qty,$purchase_id); // 829
+        }
     }
 
     public function add_vehicle_type(){
