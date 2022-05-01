@@ -871,5 +871,6 @@ class Orders_model extends CI_Model
 
         return $total;
     }
+
 }
 

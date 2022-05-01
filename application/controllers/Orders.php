@@ -257,7 +257,7 @@ class Orders extends CI_Controller {
                 $this->Orders_model->update_order_item($bill_no); //554
 
                 // Post resquest to Trakee API
-                $this->trakeeApi($bill_no);
+                //$this->trakeeApi($bill_no);
                 
                 // Reduce from purchase items
                 $this->Orders_model->update_quantity($bill_no); //661
@@ -337,49 +337,51 @@ class Orders extends CI_Controller {
             $i_ser++;
         }
 
-        
         $data = array (
-            'token' => 'eyJzdWIiOiJyaXNoaSIsImlhdCI6MTY0OTEzMzIwMn0',
+            'token' => 'eyJzdWIiOiJyc2F1dG8iLCJpYXQiOjE2NTEyOTMwNzZ9',
             'print' => true,
             'digital' => true,
             'invoice' => 
             array (
-              'subject' => 'string',
+              'subject' => '',
               'reference' => $order_id,
               'invoiceNo' => $bill_no,
-              'note' => 'string',
+              'note' => '',
               'currencyId' => 'LKR',
               'subTotal' => $subtotal,
               'discount' => $discount = $orderTbl->discount,
               'total' => $subtotal - $discount,
-              'paid' => 1,
-              'receivable' => 'string',
-              'dueDate' => '2022-04-05T14:18:51.222Z',
-              'imageUrl' => 'string',
-              'documentUrl' => 'string',
-              'invoiceItem' => $items,
-              'invoiceService' => $services,
+              'paid' => $subtotal - $discount,
+              'receivable' => '',
+              'dueDate' => '',
+              'imageUrl' => '',
+              'documentUrl' => '',
+              'invoiceItems' => $items,
+              'invoiceServices' => $services,
             ),
             'customer' => 
             array (
-              'firstName' => 'string',
-              'lastName' => 'string',
+              'firstName' => '',
+              'lastName' => '',
               'name' => $orderTbl->customer_name,
               'customerPhone' => '+94'.$orderTbl->contact_no,
-              'address' => 'string',
-              'email' => 'string',
-              'dateOfBirth' => '2022-04-05T14:18:51.223Z',
-              'nickName' => 'string',
-              'civilStatus' => 'string',
-              'imageUrl' => 'string',
-              'vehicleNumber' => 'string',
-              'nic' => 'string',
+              'address' => '',
+              'email' => '',
+              'dateOfBirth' => '',
+              'nickName' => '',
+              'civilStatus' => '',
+              'imageUrl' => '',
+              'vehicleNumber' => $orderTbl->vehicle_no,
+              'nic' => '',
+              'identifier' => $orderTbl->vehicle_no
             ),
         );
 
         $jsondata = json_encode($data);
+        // echo $jsondata;
+        // die();
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"https://enterprise-stage-api.trakee.com/v1/orders/addOrder");
+        curl_setopt($ch, CURLOPT_URL,"https://rsauto-api.trakee.com/v1/orders/addOrder");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $jsondata);
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -390,7 +392,9 @@ class Orders extends CI_Controller {
 
         curl_close ($ch);
 
-        echo $server_output;
+        $this->session->set_flashdata('digital',"<div class='alert alert-success'>Invoice sent Successfully!</div>");
+        
+        redirect('Orders/view/'.$bill_no.'');
     }
 
     public function printBill($bill_no){
@@ -419,9 +423,7 @@ class Orders extends CI_Controller {
 
    
 
-    public function view(){
-
-        $bill_no =  $this->uri->segment('3');
+    public function view($bill_no){
 
         $data['page_title'] = 'View Order';
         $data['username'] = $this->Dashboard_model->username();
@@ -810,7 +812,6 @@ class Orders extends CI_Controller {
         $purchase_id = $this->input->post('purchase_id');
         echo $this->Orders_model->get_item_amount($purchase_id);
     }
-
 }
 
 /* End of file Orders.php and path /application/controllers/Orders.php */

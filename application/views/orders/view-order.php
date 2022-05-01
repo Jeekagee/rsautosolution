@@ -10,6 +10,15 @@
         <div class="row mt">
             <div class="col-lg-8">
             <div style="margin-bottom: 10px;" >
+                <p>
+                                <div id="validation">
+                                  <?php
+                                  if ($this->session->flashdata('digital')) {
+                                    echo $this->session->flashdata('digital');
+                                  }
+                                  ?>
+                                </div>
+                                </p>
                 <a href="<?php echo base_url(); ?>Orders/insert" class="btn btn-success"><i class="fa fa-plus"></i> Add New</a>
             </div>
             <!-- page start-->
@@ -177,6 +186,8 @@
                         <td>
                             <a href="<?php echo base_url(); ?>Orders" class="btn btn-primary">Back</a>
                             <a target="_blank" href="<?php echo base_url();?>Orders/viewprintBill/<?php echo $bill_no;?>" class="btn btn-success">Print</a>
+                            <a href="<?php echo base_url();?>Orders/trakeeApi/<?php echo $bill_no;?>" class="btn btn-info">Digital</a>
+                            
                         </td>
                     </tr>
                   </tbody>
