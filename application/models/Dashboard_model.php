@@ -71,7 +71,26 @@ class Dashboard_model extends CI_Model
     }
 
     public function total_service_income(){
-        $sql = "SELECT amount FROM order_service WHERE status = 1";
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT amount, created FROM order_service WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        }
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT amount, created FROM order_service WHERE created = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT amount, created FROM order_service WHERE created BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        //$sql = "SELECT amount FROM order_service WHERE status = 1";
         $query = $this->db->query($sql);
         $result = $query->result();
         $count = $query->num_rows();
@@ -87,8 +106,28 @@ class Dashboard_model extends CI_Model
         return $total;
     }
 
-    public function total_item_income(){
-        $sql = "SELECT amount FROM order_item WHERE status = 1";
+    public function total_item_income($from_date,$to_date){
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT amount,created FROM order_item WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        }
+
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT amount,created FROM order_item WHERE created = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT amount,created FROM order_item WHERE created BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        // $sql = "SELECT amount FROM order_item WHERE status = 1";
         $query = $this->db->query($sql);
         $result = $query->result();
         $count = $query->num_rows();
@@ -104,8 +143,28 @@ class Dashboard_model extends CI_Model
         return $total;
     }
 
-    public function total_expense(){
-        $sql = "SELECT amount FROM expense";
+    public function total_expense($from_date,$to_date){
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+      
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT amount,created FROM expense WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        }
+
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT amount,created FROM expense WHERE created = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT amount,created FROM expense WHERE created BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        // $sql = "SELECT amount FROM expense";
         $query = $this->db->query($sql);
         $result = $query->result();
         $count = $query->num_rows();
@@ -121,8 +180,28 @@ class Dashboard_model extends CI_Model
         return $total;
     }
     
-    public function total_purchase(){
-        $sql = "SELECT * FROM purchase_items";
+    public function total_purchase($from_date,$to_date){
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+      
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT * FROM purchase_items WHERE MONTH(created_at) = MONTH(CURRENT_DATE())";
+        }
+
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT * FROM purchase_items WHERE created_at = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT * FROM purchase_items WHERE created_at BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        // $sql = "SELECT * FROM purchase_items";
         $query = $this->db->query($sql);
         $result = $query->result();
         $count = $query->num_rows();
@@ -138,8 +217,70 @@ class Dashboard_model extends CI_Model
 
         return $total;
     }
-                        
+
+    public function orders_total($from_date,$to_date)
+    {
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+      
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT * FROM orders WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        }
+
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT * FROM orders WHERE created = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT * FROM orders WHERE created BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        // $sql = "SELECT * FROM orders WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $count = $query->num_rows();
+        
+        return $count;
+    }
+
+    public function new_customer($from_date,$to_date)
+    {
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+      
+        $newDate = date("d-m-Y", strtotime($from_date));
+        if ($from_date==null && $to_date==null) {
+            $sql = "SELECT DISTINCT customer_name FROM orders WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        }
+
+        elseif($from_date!=null && $to_date==null) {
+            $sql = "SELECT DISTINCT customer_name FROM orders WHERE created = '$newDate'";
+        }
+
+        elseif($from_date!=null && $to_date!=null){
+            $sql = "SELECT DISTINCT customer_name FROM orders WHERE created BETWEEN  '$from_date' AND '$to_date'";
+        }
+
+        // $sql = "SELECT * FROM orders WHERE MONTH(created) = MONTH(CURRENT_DATE())";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $count = $query->num_rows();
+        
+        return $count;
+    }
+        
+    
 }
+   
 
 
 /* End of file Dashboard_model.php and path /application/models/Dashboard_model.php */

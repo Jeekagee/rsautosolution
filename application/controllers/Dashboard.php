@@ -15,6 +15,13 @@ class Dashboard extends CI_Controller {
     }
     public function index()
     {
+        $from_date=null;
+        $to_date=null;
+            if ($this->input->post('submit')) {
+                $from_date=$this->input->post('from_date');
+                $to_date=$this->input->post('to_date');
+      }
+
         $data['page_title'] = 'Dashboard';
         $data['username'] = $this->Dashboard_model->username();
         
@@ -22,6 +29,12 @@ class Dashboard extends CI_Controller {
         $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
         $data['recent_orders'] = $this->Dashboard_model->recent_orders();
+        $data['total_service_income'] = $this->Dashboard_model->total_service_income($from_date,$to_date);
+        $data['total_item_income'] = $this->Dashboard_model->total_item_income($from_date,$to_date);
+        $data['total_expense'] = $this->Dashboard_model->total_expense($from_date,$to_date);
+        $data['total_purchase'] = $this->Dashboard_model->total_purchase($from_date,$to_date);
+        $data['orders_total'] = $this->Dashboard_model->orders_total($from_date,$to_date);
+        $data['new_customer'] = $this->Dashboard_model->new_customer($from_date,$to_date);
 
         $data['main_menu'] = $this->Dashboard_model->recent_orders();
 

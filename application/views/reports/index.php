@@ -57,14 +57,15 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <a href="<?php echo base_url(); ?>Report/Customer">
+                    <a href="<?php echo base_url(); ?>Report/CustomerReport">
                     <div class="text-center report-cart" style="background-color:#7027A0;">
                         CUSTOMER
                     </div>
                 </div>
                 <div class="col-md-2">
+                    <a href="<?php echo base_url(); ?>Report/ProfitReport">
                     <div class="text-center report-cart" style="background-color:#0F52BA;">
-                        FINANCE
+                        PROFIT&LOST
                     </div>
                 </div>
                 <div class="col-md-2">

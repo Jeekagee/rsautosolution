@@ -157,26 +157,52 @@ class Report extends CI_Controller
     $this->load->view('reports/footer');
   }
 
-  public function Finance()
-  {
-        $data['page_title'] = 'Finance - Report';
-        $data['username'] = $this->Dashboard_model->username();
-        //$data['orders'] = $this->Orders_model->orders();
-        //$data['bill_years'] = $this->Orders_model->get_bill_years();
-        
+  public function CustomerReport(){
+    $data['page_title'] = 'Customer Report';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
-        $data['pending_count'] = $this->Dashboard_model->pending_count();
-        $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+    $data['customer_report'] = $this->Report_model->customer_report();
 
-        $data['nav'] = "Reports";
-        $data['subnav'] = "Reports";
+        $data['nav'] = "Report";
+        $data['subnav'] = "AddReport";
 
-        $this->load->view('dashboard/layout/header',$data);
-        $this->load->view('dashboard/layout/aside',$data);
-        //$this->load->view('aside',$data);
-        $this->load->view('reports/finance_report',$data);
-        $this->load->view('orders/footer');
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('reports/customer_report',$data);
+    $this->load->view('reports/footer');
   }
+
+  public function ProfitReport(){
+    $from_date=null;
+    $to_date=null;
+  if ($this->input->post('submit')) {
+    $from_date=$this->input->post('from_date');
+    $to_date=$this->input->post('to_date');
+  }
+  
+
+  $data['page_title'] = 'Profit & Lost Report';
+  $data['username'] = $this->Dashboard_model->username();
+  $data['pending_count'] = $this->Dashboard_model->pending_count();
+  $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+  $data['total_expense'] = $this->Report_model->total_expense($from_date,$to_date);
+  $data['total_service_income'] = $this->Report_model->total_service_income($from_date,$to_date);
+  $data['total_item_income'] = $this->Report_model->total_item_income($from_date,$to_date);
+  $data['total_cog'] = $this->Report_model->total_cog($from_date,$to_date);
+  // $data['profit_lost_report'] = $this->Report_model->total_revenue();
+
+      $data['nav'] = "Report";
+      $data['subnav'] = "AddReport";
+
+  $this->load->view('dashboard/layout/header',$data);
+  $this->load->view('dashboard/layout/aside',$data);
+  $this->load->view('reports/profit_lost_report',$data);
+  $this->load->view('reports/footer');
+}
+
 
 }
 

@@ -44,7 +44,7 @@
                         <p style="line-height:12px; letter-spacing:4px; margin-bottom: 0rem; font-family: auto;">
                             A9 Road, Nochimoddai<br>
                             Vavuniya.<br>
-                            Tel : 024 222 9192
+                            Tel : 024 222 9192/077 120 3085
                         </p>
                     </div>
                 </td>
@@ -60,6 +60,7 @@
                                 Customer Name: <?php echo $basic->customer_name; ?><br>
                                 Mobile No: <?php echo $basic->contact_no; ?><br>
                                 Vehicle No: <?php echo $basic->vehicle_no; ?><br>
+                                Vehicle Type: <?php echo $basic->type; ?><br>
                                 Current Km: <?php echo $basic->ckm; ?>km<br>
                             </p>
                         </div>

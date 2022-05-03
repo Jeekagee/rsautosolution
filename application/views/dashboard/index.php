@@ -11,40 +11,40 @@
             </div>
             <div class="custom-bar-chart">
               <ul class="y-axis">
-                <li><span>10.000</span></li>
-                <li><span>8.000</span></li>
-                <li><span>6.000</span></li>
-                <li><span>4.000</span></li>
-                <li><span>2.000</span></li>
+                <li><span>32</span></li>
+                <li><span>16</span></li>
+                <li><span>8</span></li>
+                <li><span>4</span></li>
+                <li><span>2</span></li>
                 <li><span>0</span></li>
               </ul>
               <div class="bar">
                 <div class="title">JAN</div>
-                <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
+                <div class="value tooltips" data-original-title="655.765" data-toggle="tooltip" data-placement="top">45%</div>
               </div>
               <div class="bar ">
                 <div class="title">FEB</div>
-                <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
+                <div class="value tooltips" data-original-title="350.700" data-toggle="tooltip" data-placement="top">25%</div>
               </div>
               <div class="bar ">
                 <div class="title">MAR</div>
-                <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
+                <div class="value tooltips" data-original-title="1884.499" data-toggle="tooltip" data-placement="top">82%</div>
               </div>
               <div class="bar ">
                 <div class="title">APR</div>
-                <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
+                <div class="value tooltips" data-original-title="1109.207" data-toggle="tooltip" data-placement="top">63%</div>
               </div>
               <div class="bar">
                 <div class="title">MAY</div>
-                <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
+                <div class="value tooltips" data-original-title="0" data-toggle="tooltip" data-placement="top">0%</div>
               </div>
               <div class="bar ">
                 <div class="title">JUN</div>
-                <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
+                <div class="value tooltips" data-original-title="0" data-toggle="tooltip" data-placement="top">0%</div>
               </div>
               <div class="bar">
                 <div class="title">JUL</div>
-                <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
+                <div class="value tooltips" data-original-title="0" data-toggle="tooltip" data-placement="top">0%</div>
               </div>
             </div>
 
@@ -137,15 +137,23 @@ p {
   background-color: #fd7e14 !important;
 }
         </style>
+      <form action="Dashboard" method="POST">
+        <!-- <h4 class="mb" style="font-weight: bold; padding-left: 2%;">PROFIT & LOST REPORT</h4> -->
+        <label class="text-right" style="padding-left: 10%; font-weight: bold;">From Date 
+          <input type="date" name="from_date" id="from_date" value="" class=""></label>
+        <label class="text-right" style="padding-left: 12%; font-weight: bold;">To Date 
+          <input type="date" name="to_date" id="to_date" value="" class=""></label>
+        <label style="padding-left: 2%;"></label>
 
+          <input class= "btn btn-primary" type="submit" name="submit" value="filter">
+      </form><br> 
             <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3 style="font-size:25px;"><?php echo $CI->Dashboard_model->total_service_income()+$CI->Dashboard_model->total_item_income(); ?>.00</h3>
-
+                <h3 style="font-size:25px;"><?php echo $total_service_income+$total_item_income; ?>.00</h3>
                 <p style="font-size:18px;">Orders</p>
               </div>
               <div class="icon">
@@ -159,7 +167,7 @@ p {
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $CI->Dashboard_model->total_expense(); ?>.00</h3>
+                <h3><?php echo $total_expense; ?>.00</h3>
 
                 <p>Expenses</p>
               </div>
@@ -174,7 +182,7 @@ p {
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3><?php echo $CI->Dashboard_model->total_purchase(); ?>.00</h3>
+                <h3><?php echo $total_purchase; ?>.00</h3>
 
                 <p>Purchase</p>
               </div>
@@ -189,7 +197,7 @@ p {
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>10</h3>
+                <h3><?php echo $new_customer; ?></h3>
 
                 <p>New Customers</p>
               </div>
@@ -206,7 +214,7 @@ p {
             <!-- small box -->
             <div class="small-box bg-orange">
               <div class="inner">
-                <h3>24</h3>
+                <h3><?php echo $orders_total; ?></h3>
 
                 <p>New Orders</p>
               </div>
