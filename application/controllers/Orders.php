@@ -813,6 +813,18 @@ class Orders extends CI_Controller {
         echo $this->Orders_model->get_item_amount($purchase_id);
     }
 
+    public function add_payment()
+    {
+        $bill_no = $this->input->post('bill_no');
+        $total = $this->input->post('total');
+        $payment = $this->input->post('payment');
+        $paid = $this->input->post('paid');
+
+        $payment = $this->Orders_model->addPayment($bill_no,$total,$payment,$paid);
+
+        echo $payment;
+    }
+
 }
 
 /* End of file Orders.php and path /application/controllers/Orders.php */

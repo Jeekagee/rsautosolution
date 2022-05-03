@@ -154,22 +154,46 @@
                   
                     <tr>
                         <td>Total</td>
-                        <td>LKR <?php echo $ser_total+$itm_total+$oser_total; ?>.00</td>
+                        <td>LKR <?php echo $total =  $ser_total+$itm_total+$oser_total; ?>.00</td>
                     </tr>
+
                     <tr>
-                      <div class="row mt">
-                        <td>Payment</td>
-                          <div class="col-md-6">
-                            <td><input class="form-control" type="text" id="" name="">
-                          </div>
-                          <div class="col-md-4">
-                            <a href="" class="btn btn-primary">Pay</a></td>
-                          </div>
-                      </div>
+                        <td>Paid</td>
+                        <td>
+                          LKR <span id="paid"><?php echo $paid = $order->paid; ?></span>.00
+                        </td>
                     </tr>
+
+                    <tr>
+                        <td>Remain</td>
+                        <td>
+                          LKR <span id="paid"><?php echo $total - $paid; ?></span>.00
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Payment</td>
+                        <td>
+                            <div class="row">
+                              <div class="col-md-8">
+                                <input class="form-control" type="text" id="bill_no" value="<?php echo $bill_no; ?>" name="bill_no" style="display: none;">
+                                <input class="form-control" type="text" id="total" value="<?php echo $total; ?>" name="total" style="display: none;">
+                                <input class="form-control" type="text" id="paid_" value="<?php echo $paid; ?>" name="paid" style="display: none;">
+                                <input class="form-control" type="text" id="payment" name="payment">
+                              </div>
+                              <div class="col-md-4">
+                                <a id="paybtn" style="width: 100%;" class="btn btn-primary">Pay</a>
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
                     <tr>
                         <td>Balance</td>
-                        <td>LKR .00</td>
+                        <td>
+                          LKR <span id="balance"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Discount</td>
@@ -200,8 +224,10 @@
                     <tr>
                         <td>
                             <a href="<?php echo base_url(); ?>Orders" class="btn btn-primary">Back</a>
-                            <a target="_blank" href="<?php echo base_url();?>Orders/viewprintBill/<?php echo $bill_no;?>" class="btn btn-success">Print</a>
-                            <a href="<?php echo base_url();?>Orders/trakeeApi/<?php echo $bill_no;?>" class="btn btn-info">Digital</a>
+                            <span id="btns" style="display: none;">
+                              <a target="_blank" href="<?php echo base_url();?>Orders/viewprintBill/<?php echo $bill_no;?>" class="btn btn-success">Print</a>
+                              <a href="<?php echo base_url();?>Orders/trakeeApi/<?php echo $bill_no;?>" class="btn btn-info">Digital</a>
+                            </span>
                             
                         </td>
                     </tr>

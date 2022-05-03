@@ -872,5 +872,22 @@ class Orders_model extends CI_Model
         return $total;
     }
 
+    public function addPayment($bill_no,$total,$payment,$paid){
+        $balance = $payment - ($total+$paid);
+        $data = array(
+            'total' => $total,
+            'paid' => $payment+$paid,
+            'balance' => $balance
+        );
+        
+        $this->db->where('bill_no', $bill_no);
+        if ($this->db->update('orders', $data)) {
+            return $payment+$paid;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 
