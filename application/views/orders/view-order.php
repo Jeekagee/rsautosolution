@@ -157,6 +157,15 @@
                         <td>LKR <?php echo $ser_total+$itm_total+$oser_total; ?>.00</td>
                     </tr>
                     <tr>
+                        <td>Payment</td>
+                        
+                        <td>LKR .00</td>
+                    </tr>
+                    <tr>
+                        <td>Balance</td>
+                        <td>LKR .00</td>
+                    </tr>
+                    <tr>
                         <td>Discount</td>
                         <td>LKR <?php echo $order->discount; ?></td>
                     </tr>
