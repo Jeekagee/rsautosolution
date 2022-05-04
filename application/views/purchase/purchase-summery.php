@@ -28,7 +28,7 @@
                     <th class="text-center">Ref No</th>
                     <th class="text-center">Supplier</th>
                     <th class="text-center">Item</th>
-                    <th class="text-center">Qunatity</th>
+                    <th class="text-center">Quantity</th>
                     <th class="text-center">Purchase Price</th>
                     <th class="text-center">Selling Price</th>
                     <th class="text-center">Total</th>
@@ -51,6 +51,7 @@
                         <td><?php echo $purchase_data->rec_date; ?></td>
                         <td><?php echo $purchase_data->ref_no; ?></td>
                         <td><?php echo $supplier->supplier;  ?></td>
+                        <!-- <td><?php echo $purchase_data->department; ?></td> -->
                         <td><?php echo $purchase->item_id; ?></td>
                         <td class="text-center"><?php echo $qty = $purchase->quantity; ?></td>
                         <td class="text-right"><?php echo $price = $purchase->purchase_price; ?>.00</td>

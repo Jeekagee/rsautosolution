@@ -19,6 +19,16 @@ class Purchase_model extends CI_Model
 
         return $result;
     } 
+
+    public function departments(){
+        
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
     public function insert_supplier($id,$name){
         $data = array(
             'id' => $id,
@@ -36,11 +46,12 @@ class Purchase_model extends CI_Model
     
         $this->db->insert('location', $data);
     }
-    public function insert_purchase($supplier,$rec_date,$location,$notes,$ref_no,$method,$check_date){
+    public function insert_purchase($supplier,$rec_date,$location,$department,$notes,$ref_no,$method,$check_date){
         $data = array(
             'supplier' => $supplier,
             'rec_date' => $rec_date,
             'location' => $location,
+            'department_id' => $department,
             'notes' => $notes,
             'ref_no' => $ref_no,
             'method' => $method,
@@ -150,7 +161,7 @@ class Purchase_model extends CI_Model
     }
 
     public function purchase_data($pur_id){
-        $sql = "SELECT * FROM purchase WHERE id = $pur_id";
+        $sql = "SELECT * FROM purchase p LEFT JOIN departments d ON p.department_id=d.department_id WHERE id = $pur_id";
         $query = $this->db->query($sql);
         $row = $query->first_row();
 

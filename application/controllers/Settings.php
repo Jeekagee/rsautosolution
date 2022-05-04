@@ -346,7 +346,8 @@ class Settings extends CI_Controller {
             $data['pending_count'] = $this->Dashboard_model->pending_count();
             $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
-            $data['services'] = $this->Setting_model->services();            
+            $data['services'] = $this->Setting_model->services();
+            $data['departments'] = $this->Setting_model->departments();            
 
             $data['nav'] = "Settings";
             $data['subnav'] = "Add Service";
@@ -362,6 +363,7 @@ class Settings extends CI_Controller {
 
         $this->form_validation->set_rules('service', 'Service', 'required|is_unique[service.service]');
         $this->form_validation->set_rules('amount', 'Service Amount', 'required|numeric');
+        $this->form_validation->set_rules('department', 'Service Department', 'required');
 
         if ($this->form_validation->run() == FALSE){
             $this->AddService();
@@ -369,7 +371,8 @@ class Settings extends CI_Controller {
         else{
             $service = $this->input->post('service');
             $amount = $this->input->post('amount');
-            $this->Setting_model->insert_services($service,$amount);
+            $department = $this->input->post('department');
+            $this->Setting_model->insert_services($service,$amount,$department);
             $this->session->set_flashdata('msg', '<div style="font-size:13px;" class="alert alert-success">Added Successfully</div>');
             redirect('Settings/AddService');
         }

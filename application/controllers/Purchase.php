@@ -26,6 +26,7 @@ class Purchase extends CI_Controller
 
         $data['suppliers'] = $this->Purchase_model->suppiler();
         $data['location'] = $this->Purchase_model->locations();
+        $data['departments'] = $this->Purchase_model->departments();
         //$data['bill_years'] = $this->Orders_model->get_bill_years();
 
         $data['pending_count'] = $this->Dashboard_model->pending_count();
@@ -79,13 +80,14 @@ class Purchase extends CI_Controller
             $supplier = $this->input->post('supplier');
             $rec_date = $this->input->post('rec_date');
             $location = $this->input->post('location');
+            $department = $this->input->post('department');
             $notes = $this->input->post('notes');
             $ref_no = $this->input->post('ref_no');
             $method = $this->input->post('method');
             $check_date = $this->input->post('check_date');
 
 
-            $this->Purchase_model->insert_purchase($supplier,$rec_date,$location,$notes,$ref_no,$method,$check_date); //23
+            $this->Purchase_model->insert_purchase($supplier,$rec_date,$location,$department,$notes,$ref_no,$method,$check_date); //23
 
             redirect('Purchase/AddItems');
       }

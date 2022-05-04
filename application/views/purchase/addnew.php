@@ -82,6 +82,25 @@
                 <div class="col-md-3">
                     <div style="padding:10px;">
                       <div class="form-group">
+                          <label for="">Department</label>
+                          <select class="form-control" name="department" id="department">
+                            <option value="">Select Department</option>
+                            <?php
+                                foreach($departments as $dep){
+                                $department = $dep->department;
+                                $id = $dep->department_id;
+                                echo "<option value='$id'>$department</option>";
+                                }
+                            ?>
+                          </select>
+                          <span class="text-danger"><?php echo form_error('department'); ?></span>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div style="padding:10px;">
+                      <div class="form-group">
                           <label for="">Notes</label>
                           <input name="notes" type="text" class="form-control" placeholder="Notes"/>
                       </div>

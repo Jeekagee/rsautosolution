@@ -27,6 +27,7 @@
                     <th>Date</th>
                     <th>Payee</th>
                     <th>Ref ID</th>
+                    <th>Department</th>
                     <th>Method</th>
                     <th>Amount</th>
                     <th class="text-center">Action</th>
@@ -42,6 +43,7 @@
                         <td><?php echo $expense->ex_date; ?></td>
                         <td><?php echo $expense->payee_name; ?></td>
                         <td><?php echo $expense->ref_no; ?></td>
+                        <td><?php echo $expense->department; ?></td>
                         <td><?php echo $expense->method; ?></td>
                         <td><?php echo $expense->amount; ?></td>
                         <td class="text-center">

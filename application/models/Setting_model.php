@@ -5,7 +5,17 @@ class Setting_model extends CI_Model
 {
     public function services(){
         
-        $sql = "SELECT * FROM service ORDER BY service ASC";
+       // $sql = "SELECT * FROM service ORDER BY service ASC";
+        $sql ="SELECT s.service_id,s.service,d.department,s.amount FROM service s LEFT JOIN departments d ON s.department=d.department_id ORDER BY s.service ASC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
+    public function departments(){
+        
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
         $query = $this->db->query($sql);
         $result = $query->result();
 
@@ -82,10 +92,11 @@ class Setting_model extends CI_Model
         return $result;
     }
 
-    public function insert_services($service,$amount){
+    public function insert_services($service,$amount,$department){
         $data = array(
             'service' => $service,
-            'amount' => $amount
+            'amount' => $amount,
+            'department' => $department
         );
         $this->db->insert('service', $data);
     }

@@ -85,6 +85,13 @@ class Orders_model extends CI_Model
         return $result;
     }
 
+    public function departments(){
+        $sql = "SELECT * FROM departments";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
     public function get_int_item($catogery){
         $sql = "SELECT * FROM int_items WHERE item_catogery = $catogery ORDER BY item_name ASC";
         $query = $this->db->query($sql);
@@ -434,7 +441,7 @@ class Orders_model extends CI_Model
         return $result;
     }
 
-    public function insert_expense($ex_date,$location,$ref_no,$name,$des,$cat,$method,$amount,$check_date,$paid){
+    public function insert_expense($ex_date,$location,$ref_no,$name,$des,$cat,$department,$method,$amount,$check_date,$paid){
         $logged = $this->session->user_id;
         $data = array(
             'ex_date' => $ex_date,
@@ -443,6 +450,7 @@ class Orders_model extends CI_Model
             'payee_name' => $name,
             'description' => $des,
             'catogery' => $cat,
+            'department' => $department,
             'method' => $method,
             'amount' => $amount,
             'entered' => $logged,

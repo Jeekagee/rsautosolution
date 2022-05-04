@@ -32,6 +32,9 @@ class Expense extends CI_Controller
     //Total Expenses for this month
     $data['total_expense'] = $this->Expense_model->total_expense(); //16
 
+    //Departments data
+    $data['departments'] = $this->Expense_model->departments();
+
     //Item Catogiries
     $data['catogories'] = $this->Inventory_model->item_catogories();
 
@@ -68,6 +71,7 @@ class Expense extends CI_Controller
         $this->form_validation->set_rules('ex_date', 'Date', 'required');
         $this->form_validation->set_rules('ref_no', 'Ref_No', 'required|is_unique[expense.ref_no]');
         $this->form_validation->set_rules('name', 'Payee Name', 'required');
+        $this->form_validation->set_rules('department', 'Department', 'required');
         $this->form_validation->set_rules('amount', 'Amount', 'required|numeric');
 
         if ($this->form_validation->run() == FALSE) {
@@ -81,6 +85,7 @@ class Expense extends CI_Controller
             $name = $this->input->post('name');
             $des = $this->input->post('des');
             $cat = $this->input->post('cat');
+            $department = $this->input->post('department');
             $method = $this->input->post('method');
             $check_date = $this->input->post('check_date');
             $amount = $this->input->post('amount');
@@ -92,7 +97,7 @@ class Expense extends CI_Controller
                 $paid = 1;
             }
             
-            $this->Orders_model->insert_expense($ex_date,$location,$ref_no,$name,$des,$cat,$method,$amount,$check_date,$paid);
+            $this->Orders_model->insert_expense($ex_date,$location,$ref_no,$name,$des,$cat,$department,$method,$amount,$check_date,$paid);
 
             $this->session->set_flashdata('adexsuccess',"<div class='alert alert-success'>Expense Added Successfully!</div>");
             redirect('Expense/AddExpenses');
@@ -118,6 +123,9 @@ class Expense extends CI_Controller
       //Total Expenses for this month
       $data['total_expense'] = $this->Expense_model->total_expense(); //16
 
+      //Departments data
+      $data['departments'] = $this->Expense_model->departments();
+
       //Expense data
       $data['expenses'] = $this->Expense_model->edit_expense($expense_id); //35
 
@@ -142,6 +150,7 @@ class Expense extends CI_Controller
       $this->form_validation->set_rules('location', 'Location', 'required');
       $this->form_validation->set_rules('amount', 'Amount', 'required|numeric');
       $this->form_validation->set_rules('cat', 'Catogery', 'required');
+      $this->form_validation->set_rules('department', 'Department', 'required');
 
       if ($this->form_validation->run() == FALSE) {
         $expenseid = $this->input->post('expenseid');
@@ -155,6 +164,7 @@ class Expense extends CI_Controller
           $name = $this->input->post('name');
           $des = $this->input->post('des');
           $cat = $this->input->post('cat');
+          $department = $this->input->post('department');
           $method = $this->input->post('method');
           $check_date = $this->input->post('check_date');
           $amount = $this->input->post('amount');
@@ -166,7 +176,7 @@ class Expense extends CI_Controller
               $paid = 1;
           }
           //51
-          $this->Expense_model->update_expense($expenseid,$ex_date,$location,$ref_no,$name,$des,$cat,$method,$amount,$check_date,$paid);
+          $this->Expense_model->update_expense($expenseid,$ex_date,$location,$ref_no,$name,$des,$cat,$department,$method,$amount,$check_date,$paid);
           $this->session->set_flashdata('success',"<div class='alert alert-success'>Expense Updated Successfully!</div>");
           redirect('Expense/summery');
       }

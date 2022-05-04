@@ -6,18 +6,26 @@ class Expense_model extends CI_Model
 {
     public function expense_summery()
     {
-        $sql = "SELECT * FROM expense";
+        $sql = "SELECT * FROM expense e LEFT JOIN departments d ON e.department=d.department_id 
+        ORDER BY created DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
 
         return $result;
     }
     
+    public function departments(){
+        
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
     public function total_expense()
     {
-        $sql = "SELECT *
-        FROM expense
-        WHERE MONTH(ex_date) = MONTH(CURRENT_DATE())
+        $sql = "SELECT * FROM expense WHERE MONTH(ex_date) = MONTH(CURRENT_DATE())
         AND YEAR(ex_date) = YEAR(CURRENT_DATE())";
 
         $query = $this->db->query($sql);
@@ -48,7 +56,7 @@ class Expense_model extends CI_Model
         return $result;
     }
 
-    public function update_expense($expenseid,$ex_date,$location,$ref_no,$name,$des,$cat,$method,$amount,$check_date,$paid){
+    public function update_expense($expenseid,$ex_date,$location,$ref_no,$name,$des,$cat,$department,$method,$amount,$check_date,$paid){
         $logged = $this->session->user_id;
         $data = array(
             'ex_date' => $ex_date,
@@ -57,6 +65,7 @@ class Expense_model extends CI_Model
             'payee_name' => $name,
             'description' => $des,
             'catogery' => $cat,
+            'department' => $department,
             'method' => $method,
             'amount' => $amount,
             'entered' => $logged,

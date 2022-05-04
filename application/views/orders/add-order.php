@@ -165,7 +165,7 @@
 
                 <div class="form-group">
                   <label class="col-md-4 control-label">Service</label>
-                  <div class="col-md-5">
+                  <div class="col-md-3">
                     <select class="form-control" name="service" id="service">
                       <option value="">Select Service</option>
                       <?php
@@ -178,7 +178,19 @@
                     </select>
                     <span class="text-danger" id="service_error"></span>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" style="padding: 0px 8px;">
+                    <select class="form-control" name="department" id="department">
+                      <option value="">Select Department</option>
+                      <?php
+                        foreach($departments as $dep){
+                          $department = $dep->department;
+                          $id = $dep->department_id;
+                          echo "<option value='$id'>$department</option>";
+                        }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="col-md-2" style="padding: 0px 16px;">
                     <input type="text" class="form-control" name="ser_amount" id="ser_amount">
                     <span class="text-danger"><?php echo form_error('ser_amount'); ?></span>
                   </div>

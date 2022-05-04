@@ -75,6 +75,7 @@ class Orders extends CI_Controller {
         $data['vehicle_types'] = $this->Orders_model->vehicle_types();
         $data['vehicle_makes'] = $this->Orders_model->vehicle_makes();
         $data['services'] = $this->Orders_model->services();
+        $data['departments'] = $this->Orders_model->departments();
         $data['items'] = $this->Orders_model->items(); //495
 
         // Labours

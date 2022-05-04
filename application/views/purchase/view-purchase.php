@@ -55,6 +55,11 @@
                 </tr>
 
                 <tr>
+                    <td>Department</td>
+                    <td><?php echo $purchase_data->department; ?></td>
+                </tr>
+
+                <tr>
                     <td>Notes</td>
                     <td><?php echo $purchase_data->notes; ?></td>
                 </tr>
