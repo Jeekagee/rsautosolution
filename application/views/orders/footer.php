@@ -311,6 +311,54 @@
         
     }); 
 
+    // number only input
+    $(function(){
+      $("#payment").keypress(function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+          return false;
+        }
+      });
+    });
+
+    // View Order Get Balance
+    $(document).ready(function(){
+      $("#payment").keyup(function(){
+        var total = $("#total").val();
+        var payment = $("#payment").val();
+        var paid = $("#paid_").val();
+        var balance = payment-(total-paid);
+        $("#balance").html(balance);
+      });  
+    });
+
+    // pay amount
+    $(document).ready(function(){
+      $("#paybtn").click(function(){
+
+        var bill_no = $("#bill_no").val();
+        var total = $("#total").val();
+        var payment = $("#payment").val();
+        var paid = $("#paid_").val();
+
+        if (payment == "") {
+          
+        }
+        else{
+          $.ajax({
+            url:"<?php echo base_url(); ?>Orders/add_payment",
+            type:"POST",
+            cache:false,
+            data:{bill_no:bill_no,total:total,payment:payment,paid:paid},
+            success:function(data){
+              // alert(data);
+              $("#paid").html(data);
+              $('#payment').val("");
+              $('#btns').show();
+            }
+          });
+        }
+      });   
+    }); 
     
   </script>
 </body>
