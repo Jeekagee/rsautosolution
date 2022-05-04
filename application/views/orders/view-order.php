@@ -157,9 +157,15 @@
                         <td>LKR <?php echo $ser_total+$itm_total+$oser_total; ?>.00</td>
                     </tr>
                     <tr>
+                      <div class="row mt">
                         <td>Payment</td>
-                        
-                        <td>LKR .00</td>
+                          <div class="col-md-6">
+                            <td><input class="form-control" type="text" id="" name="">
+                          </div>
+                          <div class="col-md-4">
+                            <a href="" class="btn btn-primary">Pay</a></td>
+                          </div>
+                      </div>
                     </tr>
                     <tr>
                         <td>Balance</td>

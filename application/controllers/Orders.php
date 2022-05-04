@@ -813,10 +813,6 @@ class Orders extends CI_Controller {
         echo $this->Orders_model->get_item_amount($purchase_id);
     }
 
-    public function testing()
-    {
-        $purchase_id = $this->input->post('purchase_id');
-    }
 }
 
 /* End of file Orders.php and path /application/controllers/Orders.php */
