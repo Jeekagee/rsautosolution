@@ -156,6 +156,13 @@ class Orders_model extends CI_Model
         return $row->amount;
     }
 
+    public function service_department($service){
+        $sql = "SELECT department FROM service WHERE service = '$service'";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+        return $row->department;
+    }
+
     public function insert_reminder($vehicle_no,$contact_no,$reminder){
         $data = array(
             'vehicle_no' => $vehicle_no,
@@ -460,7 +467,7 @@ class Orders_model extends CI_Model
         $this->db->insert('expense', $data);
     }
 
-    public function insert_order_service($service_id,$bill_no,$amount){
+    public function insert_order_service($service_id,$bill_no,$department,$amount){
         $service_data = $this->service_data($service_id); //468
 
         $service_id = $service_id;
@@ -470,6 +477,7 @@ class Orders_model extends CI_Model
             'bill_no' => $bill_no,
             'service_id' => $service_id,
             'service' => $service,
+            'department' => $department,
             'amount' => $amount
         );
         $this->db->insert('order_service', $data);
@@ -775,12 +783,22 @@ class Orders_model extends CI_Model
         return $row->amount;
     }
 
+    public function show_dep($id){
+        $sql = "SELECT s.service_id,d.department FROM service s LEFT JOIN departments d 
+        ON s.department=d.department_id WHERE service_id = $id LIMIT 1";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+
+        return $row->department;
+    }
+
     //Other Service Section
 
-    public function insert_other_service($service,$bill_no,$amount){
+    public function insert_other_service($service,$bill_no,$department,$amount){
         $data = array(
             'bill_no' => $bill_no,
             'service' => $service,
+            'department' => $department,
             'amount' => $amount
         );
         $this->db->insert('other_service', $data);

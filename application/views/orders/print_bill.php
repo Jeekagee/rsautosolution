@@ -175,6 +175,20 @@
                 <td class="text-right">Total</td>
                 <td class="text-right">Rs.<?php echo $total_price- $discount; ?>.00</td>
             </tr>
+            <tr style="height:0mm; font-size: 8px;font-family: auto;">
+                <td class="text-center"></td>
+                <td class="text-left"></td>
+                <td class="text-center"></td>
+                <td class="text-right">Paid</td>
+                <td class="text-right">Rs.<?php echo $paid = $basic->paid; ?>.00</td>
+            </tr>
+            <tr style="height:0mm; font-size: 8px;font-family: auto;">
+                <td class="text-center"></td>
+                <td class="text-left"></td>
+                <td class="text-center"></td>
+                <td class="text-right">Balance</td>
+                <td class="text-right">Rs.<?php echo $balance = $basic->balance; ?>.00</td>
+            </tr>
         </table>
     </div>
 </div>

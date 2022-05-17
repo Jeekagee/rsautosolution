@@ -12,6 +12,20 @@ class Report_model extends CI_Model
         return $result;
     }
 
+    public function purchase_quantity($item){
+        $qty = 0;
+        $sql = "SELECT item_id,SUM(quantity) as qty FROM purchase_items where item_id = '$item' GROUP BY item_id";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        
+        foreach( $result as $row)
+        {
+        $qty = $row->qty;
+        }
+        return $qty;
+        //return $result;
+    }
+
     function fetch_data()
     {
     $this->db->order_by("item_id", "DESC");
@@ -304,7 +318,7 @@ class Report_model extends CI_Model
     }
 
     public function total_qty(){
-        $sql = "SELECT COUNT(item_id), item_name * FROM int_aty GROUP BY qty ORDER BY(item_id) DESC";
+        $sql = "SELECT COUNT(item_id), item_name * FROM int_qty GROUP BY qty ORDER BY(item_id) DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
         

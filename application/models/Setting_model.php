@@ -106,6 +106,25 @@ class Setting_model extends CI_Model
         $query = $this->db->query($sql);
     }
 
+    public function editService($id){
+        $sql = "SELECT * FROM service s LEFT JOIN departments d ON s.department=d.department_id WHERE s.service_id=$id";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+        return $row;
+    }
+
+    public function updateService($serviceid,$service,$amount,$department){
+        $logged = $this->session->user_id;
+        $data = array(
+            'service' => $service,
+            'amount' => $amount,
+            'department' => $department
+        );
+
+        $this->db->where('service_id', $serviceid);
+        $this->db->update('service', $data);
+    }
+
     public function del_inv_setting($id){
         $this->db->where('id', $id);
         $this->db->delete('int_setting');

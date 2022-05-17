@@ -104,6 +104,7 @@ class Orders extends CI_Controller {
         $data['vehicle_types'] = $this->Orders_model->vehicle_types();
         $data['vehicle_makes'] = $this->Orders_model->vehicle_makes();
         $data['services'] = $this->Orders_model->services();
+        $data['departments'] = $this->Orders_model->departments();
         
         // Labours
         $data['bays'] = $this->Orders_model->bays();
@@ -422,7 +423,12 @@ class Orders extends CI_Controller {
 
     }
 
-   
+   //Service Amount for Order
+   public function service_department(){
+        $service = $this->input->post('service');
+        echo $this->Orders_model->service_department($service); //138
+
+    }
 
     public function view($bill_no){
 
@@ -521,6 +527,7 @@ class Orders extends CI_Controller {
     public function Add_Service(){
         if ($this->input->post('service')) {
             $service_id = $this->input->post('service');
+            $department = $this->input->post('department');
             $amount = $this->input->post('ser_amount');
         }
         $bill_no = $this->input->post('bill_no');
@@ -530,7 +537,7 @@ class Orders extends CI_Controller {
                 echo "<div class='alert alert-warning'>Please Add New Service</div>"; //for show error
             }
             else{
-                $this->Orders_model->insert_order_service($service_id,$bill_no,$amount); //456
+                $this->Orders_model->insert_order_service($service_id,$bill_no,$department,$amount); //456
             }
         }
         
@@ -736,16 +743,24 @@ class Orders extends CI_Controller {
         echo $amount;
     }
 
+    //to show in add order
+    public function department(){
+        $id = $this->input->post('ser_id');
+        $department = $this->Orders_model->show_dep($id);
+        echo $department;
+    }
+
     public function Add_Other_Service(){
         if ($this->input->post('oservice')) {
             $service = $this->input->post('oservice');
+            $department = $this->input->post('odepartment');
             $amount = $this->input->post('oser_amount');
         }
         $bill_no = $this->input->post('bill_no');
 
         //insert other service into temperary table
         if ($this->input->post('oservice')) {
-            $this->Orders_model->insert_other_service($service,$bill_no,$amount); //765
+            $this->Orders_model->insert_other_service($service,$bill_no,$department,$amount); //765
         }
         
         //Show selected service

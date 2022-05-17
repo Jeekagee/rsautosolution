@@ -343,6 +343,23 @@ class Purchase extends CI_Controller
     $this->load->view('purchase/footer');
   }
 
+  public function Purchases(){
+    $data['page_title'] = 'Purchase';
+    $data['username'] = $this->Dashboard_model->username();
+    $data['pending_count'] = $this->Dashboard_model->pending_count();
+    $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+    $data['purchases'] = $this->Purchase_model->purchase();
+
+        $data['nav'] = "Purchase";
+        $data['subnav'] = "Purchases";
+
+    $this->load->view('dashboard/layout/header',$data);
+    $this->load->view('dashboard/layout/aside',$data);
+    $this->load->view('purchase/purchase',$data);
+    $this->load->view('purchase/footer');
+  }
+
   public function item_search(){
 
     if ($this->input->post('item')) {
@@ -401,6 +418,14 @@ class Purchase extends CI_Controller
     $price =  $this->input->post('price');
     $this->Purchase_model->update_sellingprice($id,$price);
     redirect('Purchase/Summery');
+  }
+
+  public function update_department()
+  {
+    $id =  $this->input->post('id');
+    $department =  $this->input->post('department_id');
+    $this->Purchase_model->update_department($id,$department);
+    redirect('Purchase/Purchases');
   }
 
 

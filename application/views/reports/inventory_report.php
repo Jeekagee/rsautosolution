@@ -4,6 +4,7 @@
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
     <!--main content start-->
+    <?php $CI =& get_instance(); ?>
     <section id="main-content">
       <section class="wrapper">
         <h3>Inventory Report</h3>
@@ -24,6 +25,7 @@
                     <th>#</th>
                     <th class="text-center">Item Id</th>
                     <th class="text-center">Item Name</th>
+                    <th class="text-center">Current Quantity</th>
                     <th class="text-center">Total Quantity</th>
                   </tr>
                 </thead>
@@ -34,12 +36,14 @@
                   foreach ($inventory as $inv){
                     $item_id=$inv->item_id;
                     $item_name =  $CI->Report_model->item_name($item_id);
+                    $purchase_quantity =  $CI->Report_model->purchase_quantity($item_id);
                     ?>
                       <tr id="inv<?php echo $inv->id; ?>">
                         <td><?php echo $i; ?></td>
                         <td><?php echo $inv->item_id; ?></td>
                         <td><?php echo $item_name->item_name; ?></td>
                         <td class="text-center"><?php echo $qty = $inv->totalqty; ?></td>
+                        <td class="text-center"><?php echo $purchase_quantity; ?></td>
                       </tr>
                      
                     <?php

@@ -72,6 +72,7 @@
                                   <table class="table table-striped">
                                     <thead>
                                       <th>Service</th>
+                                      <th>Department</th>
                                       <th>Price</th>
                                     </thead>
                                     <tbody>
@@ -82,6 +83,7 @@
                                             ?>
                                             <tr>
                                               <td><?php echo $ser->service; ?></td>
+                                              <td><?php echo $ser->department; ?></td>
                                               <td>LKR <?php echo $ser->amount; ?>.00</td>
                                             </tr>
                                             <?php
@@ -99,6 +101,7 @@
                                   <table class="table table-striped">
                                     <thead>
                                       <th>Other Service</th>
+                                      <th>Department</th>
                                       <th>Price</th>
                                     </thead>
                                     <tbody>
@@ -109,6 +112,7 @@
                                             ?>
                                             <tr>
                                               <td><?php echo $oser->service; ?></td>
+                                              <td><?php echo $oser->department; ?></td>
                                               <td>LKR <?php echo $oser->amount; ?>.00</td>
                                             </tr>
                                             <?php
@@ -150,7 +154,11 @@
                                   </table>
                         </td>
                     </tr>
-
+                  
+                    <tr>
+                        <td>Discount</td>
+                        <td>LKR <?php echo $order->discount; ?></td>
+                    </tr>
                   
                     <tr>
                         <td>Total</td>
@@ -194,11 +202,7 @@
                         <td>
                           LKR <span id="balance"></span>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Discount</td>
-                        <td>LKR <?php echo $order->discount; ?></td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <td>Created On</td>
                         <td>

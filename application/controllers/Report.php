@@ -42,6 +42,7 @@ class Report extends CI_Controller
     $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
     $data['inventory'] = $this->Report_model->inventory();
+    //$data['purchase_quantity'] = $this->Report_model->purchase_quantity();
 
         $data['nav'] = "Report";
         $data['subnav'] = "AddReport";

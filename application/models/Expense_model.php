@@ -42,7 +42,7 @@ class Expense_model extends CI_Model
 
     public function edit_expense($id)
     {
-        $sql = "SELECT * FROM expense WHERE id=$id";
+        $sql = "SELECT * FROM expense e LEFT JOIN departments d ON e.department=d.department_id WHERE e.id=$id";
         $query = $this->db->query($sql);
         $row = $query->first_row();
         return $row;

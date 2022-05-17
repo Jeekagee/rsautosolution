@@ -385,6 +385,47 @@ class Settings extends CI_Controller {
         redirect('Settings/AddService');
     }
 
+    public function editService(){
+        $service_id =  $this->uri->segment('3');
+        $data['page_title'] = 'Edit Service';
+        $data['username'] = $this->Dashboard_model->username();
+        $data['pending_count'] = $this->Dashboard_model->pending_count();
+        $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+        //Expense data
+        $data['services'] = $this->Setting_model->editService($service_id);
+        $data['departments'] = $this->Setting_model->departments();
+  
+        $data['nav'] = "Settings";
+            $data['subnav'] = "Edit Service";
+  
+        $this->load->view('dashboard/layout/header',$data);
+        $this->load->view('dashboard/layout/aside',$data);
+        $this->load->view('settings/edit_service',$data);
+        $this->load->view('settings/footer',$data);
+      }
+
+      public function updateService(){
+
+        $this->form_validation->set_rules('department', 'Department', 'required');
+  
+        if ($this->form_validation->run() == FALSE) {
+          $serviceid = $this->input->post('serviceid');
+          redirect('Settings/editService/'.$serviceid);
+        }
+        else{
+            $serviceid = $this->input->post('serviceid');
+            $service = $this->input->post('service');
+            $amount = $this->input->post('amount');
+            $department = $this->input->post('department');
+  
+            $this->Setting_model->updateService($serviceid,$service,$amount,$department);
+            $this->session->set_flashdata('success',"<div class='alert alert-success'>Expense Updated Successfully!</div>");
+            redirect('Settings/AddService');
+        }
+  
+    }
+
     // Delete inventory setting Item
     public function delete_inv_setting(){
         $inv_setting_id =  $this->uri->segment('3');

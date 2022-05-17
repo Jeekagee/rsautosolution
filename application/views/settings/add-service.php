@@ -108,7 +108,9 @@
                                     <td><?php echo $ser->amount; ?>.00</td>
                                     <td>
                                         <a href="<?php echo base_url(); ?>Settings/deleteService/<?php echo $ser->service_id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                        <a href="<?php echo base_url(); ?>Settings/editService/<?php echo $ser->service_id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                                     </td>
+                                        
                                 </tr>
                             <?php
                             $i++;

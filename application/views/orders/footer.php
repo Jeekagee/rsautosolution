@@ -172,13 +172,29 @@
         });
       }); 
 
+      $("#service").change(function(){
+        var ser_id = $(this).val();
+        $.ajax({
+          url:"<?php echo base_url(); ?>Orders/department",
+          type:"POST",
+          cache:false,
+          data:{ser_id:ser_id},
+          success:function(data){
+            //alert(data);
+            $("#department").val(data);
+          }
+        });
+      }); 
+
     });
 
+    
     // Price for Service
     $(document).ready(function(){
       $("#add_service").click(function(){
         var service = $("#service").val();
         var bill_no = $("#bill_no").val();
+        var department = $("#department").val();
         var ser_amount = $("#ser_amount").val();
 
         if (service == "") {
@@ -190,11 +206,12 @@
             url:"<?php echo base_url(); ?>Orders/Add_Service", //495
             type:"POST",
             cache:false,
-            data:{service:service,bill_no:bill_no,ser_amount:ser_amount},
+            data:{service:service,bill_no:bill_no,department:department,ser_amount:ser_amount},
             success:function(data){
               //alert(data);
               $("#service_tbl").html(data);
               $('#service').val("");
+              $("#department").val("");
               $("#ser_amount").val("");
               $('#submit_btn').show();
             }
@@ -226,6 +243,7 @@
       $("#add_oservice").click(function(){
         var oservice = $("#oservice").val();
         var bill_no = $("#bill_no").val();
+        var odepartment = $("#odepartment").val();
         var oser_amount = $("#oser_amount").val();
 
         if (oservice == "") {
@@ -236,11 +254,12 @@
             url:"<?php echo base_url(); ?>Orders/Add_Other_Service", //636
             type:"POST",
             cache:false,
-            data:{oservice:oservice,bill_no:bill_no,oser_amount:oser_amount},
+            data:{oservice:oservice,bill_no:bill_no,odepartment:odepartment,oser_amount:oser_amount},
             success:function(data){
               //alert(data);
               $("#oservice_tbl").html(data);
               $('#oservice').val("");
+              $('#odepartment').val("");
               $("#oser_amount").val("");
             }
           });

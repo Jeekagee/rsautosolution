@@ -67,7 +67,10 @@
                         ?>
                     </td>
                 </tr>
-                
+                <tr>
+                    <td>Department</td>
+                    <td><?php echo $expenses->department; ?></td>
+                </tr>
                 <tr>
                     <td>Payee Name</td>
                     <td><?php echo $expenses->payee_name; ?></td>

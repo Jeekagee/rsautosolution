@@ -160,6 +160,14 @@ class Purchase_model extends CI_Model
         return $result;
     }
 
+    public function purchase(){
+        $sql = "SELECT * FROM purchase";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+
     public function purchase_data($pur_id){
         $sql = "SELECT * FROM purchase p LEFT JOIN departments d ON p.department_id=d.department_id WHERE id = $pur_id";
         $query = $this->db->query($sql);
@@ -220,6 +228,16 @@ class Purchase_model extends CI_Model
         
         $this->db->where('id', $id);
         $this->db->update('purchase_items', $data);
+    }
+
+    public function update_department($id,$department)
+    {
+        $data = array(
+            'department_id' => $department
+        );
+        
+        $this->db->where('id', $id);
+        $this->db->update('purchase', $data);
     }
                         
 }

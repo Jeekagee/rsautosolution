@@ -135,7 +135,7 @@ class Expense extends CI_Controller
       $data['location'] = $this->Orders_model->locations();
 
       $data['nav'] = "Expense";
-    $data['subnav'] = "Expenses";
+      $data['subnav'] = "Expenses";
 
       $this->load->view('dashboard/layout/header',$data);
       $this->load->view('dashboard/layout/aside',$data);

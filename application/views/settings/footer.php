@@ -68,6 +68,12 @@
         });
       }); 
     });
+
+    function reset(){
+      $("#service").val("");
+      $("#department").val("");
+      $("#amount").val("");
+    }
 </script>
 
 </body>
