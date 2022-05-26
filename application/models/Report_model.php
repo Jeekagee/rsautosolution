@@ -349,20 +349,23 @@ class Report_model extends CI_Model
         if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
     }
 
-    public function total_orderservice_dep(){
-        $sql = "SELECT amount,created FROM other_service WHERE department='department1' GROUP BY created";
+    public function service_dep_total($date,$department_id){
+        $sql = "SELECT * FROM order_service WHERE DATE(`created`) = '$date' AND department = $department_id";
         $query = $this->db->query($sql);
         $result = $query->result();
-        $count = $query->num_rows();
-
         $total = 0;
 
-        if ($count > 0) {
-            foreach ($result as $amt) {
-                $total = $total+$amt->amount;
-            }
+        foreach ($result as $row) {
+            $total = $total+$row->amount;
         }
 
+        $sql_ = "SELECT * FROM other_service WHERE DATE(`created`) = '$date' AND department = $department_id";
+        $query_ = $this->db->query($sql_);
+        $result_ = $query_->result();
+
+        foreach ($result_ as $row_) {
+            $total = $total+$row_->amount;
+        }
         return $total;
     }
 

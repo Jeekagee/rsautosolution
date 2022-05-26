@@ -211,8 +211,7 @@ public function SalesReport(){
   $data['confirm_count'] = $this->Dashboard_model->confirm_count();
 
   // $data['sales_report'] = $this->Report_model->sales_report();
-  $data['total_orderservice_dep'] = $this->Report_model->total_orderservice_dep();
-  $data['total_otherservice_dep'] = $this->Report_model->total_otherservice_dep();
+  //$data['service_dep'] = $this->Report_model->total_orderservice_dep(1);
 
       $data['nav'] = "Report";
       $data['subnav'] = "AddReport";
