@@ -347,7 +347,51 @@ class Report_model extends CI_Model
         $str = preg_replace("/\t/", "\\t", $str); 
         $str = preg_replace("/\r?\n/", "\\n", $str); 
         if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
-    }                  
+    }
+
+    public function total_orderservice_dep(){
+        $sql = "SELECT amount,created FROM other_service WHERE department='department1' GROUP BY created";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $count = $query->num_rows();
+
+        $total = 0;
+
+        if ($count > 0) {
+            foreach ($result as $amt) {
+                $total = $total+$amt->amount;
+            }
+        }
+
+        return $total;
+    }
+
+    public function total_otherservice_dep(){
+        $sql = "SELECT amount,created FROM other_service WHERE department='department1' GROUP BY created";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $count = $query->num_rows();
+
+        $total = 0;
+
+        if ($count > 0) {
+            foreach ($result as $amt) {
+                $total = $total+$amt->amount;
+            }
+        }
+
+        return $total;
+    }
+
+    public function sales_report(){
+        $sql = "SELECT * FROM orders";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;
+    }
+    
+
 }
 
 /* End of file Report_model.php and path /application/models/Report_model.php */
