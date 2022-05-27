@@ -351,33 +351,33 @@
     });
 
     // pay amount
-    // $(document).ready(function(){
-    //   $("#paybtn").click(function(){
+    $(document).ready(function(){
+      $("#paybtn").click(function(){
 
-    //     var bill_no = $("#bill_no").val();
-    //     var total = $("#total").val();
-    //     var payment = $("#payment").val();
-    //     var paid = $("#paid_").val();
+        var bill_no = $("#bill_no").val();
+        var total = $("#total").val();
+        var payment = $("#payment").val();
+        var paid = $("#paid_").val();
 
-    //     if (payment == "") {
+        if (payment == "") {
           
-    //     }
-    //     else{
-    //       $.ajax({
-    //         url:"<?php echo base_url(); ?>Orders/add_payment",
-    //         type:"POST",
-    //         cache:false,
-    //         data:{bill_no:bill_no,total:total,payment:payment,paid:paid},
-    //         success:function(data){
-    //           // alert(data);
-    //           $("#paid").html(data);
-    //           $('#payment').val("");
-    //           $('#btns').show();
-    //         }
-    //       });
-    //     }
-    //   });   
-    // }); 
+        }
+        else{
+          $.ajax({
+            url:"<?php echo base_url(); ?>Orders/add_payment",
+            type:"POST",
+            cache:false,
+            data:{bill_no:bill_no,total:total,payment:payment,paid:paid},
+            success:function(data){
+              // alert(data);
+              $("#paid").html(data);
+              $('#payment').val("");
+              $('#btns').show();
+            }
+          });
+        }
+      });   
+    }); 
     
   </script>
 </body>

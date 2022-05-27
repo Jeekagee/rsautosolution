@@ -206,77 +206,83 @@
                             </div>
                         </td>
                     </tr>
-  <div class="modal fade" id="basicPay" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content ">
-            <form method="post" id="basicpay_data" class="form-horizontal">
-                <!-- Modal Header -->
-                <div class="modal-header text-center">
-                    <h4 class="modal-title">Make Payment</h4>
-                    <!-- <button type="button" class="close"data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                        <span class="sr-only"> Close</span>
-                    </button> -->
-                </div>
+                    <!-- modal start -->
+                    <div class="modal fade" id="basicPay" role="dialog">
+                      <div class="modal-dialog">
+                          <div class="modal-content ">
+                              <form method="post" id="basicpay_data" class="form-horizontal">
+                                  <!-- Modal Header -->
+                                  <div class="modal-header text-center">
+                                      <h4 class="modal-title">Make Payment</h4>
+                                  </div>
 
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p id="statusMsg"></p>
-                     <div class="text-center"><h1 id="b_total">$<?php echo $total =  $ser_total+$itm_total+$oser_total; ?></h1></div>
-                      <div class="row" style="padding-left: 15px; padding-right:10px;">
-                        <div class="col-6">
-                            <div class="card-title">
-                                <label for="cardNumber">Amount</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control  text-bold-600 blue-grey" value="<?php echo $total =  $ser_total+$itm_total+$oser_total; ?>" readonly>
-                                    <span class="input-group-addon"><i class="icon icon-cash"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="card-title">
-                                <label for="cardNumber">Payment Method</label>
-                                <select class="form-control" name="p_method" id="p_method">
-                                    <option value="Cash">Cash</option>
-                                    <option value="Card Swipe">Card</option>
-                                    <option value="Bank">Bank</option>
-                                </select></div>
-                        </div>
+                                  <!-- Modal Body -->
+                                  <div class="modal-body">
+                                      <p id="statusMsg"></p>
+                                      <div class="text-center"><h1 id="b_total">$<?php echo $total =  $ser_total+$itm_total+$oser_total; ?></h1></div>
+                                        <div class="row" style="padding-left: 15px; padding-right:10px;">
+                                          <div class="col-6">
+                                              <div class="card-title">
+                                                  <label for="cardNumber">Amount</label>
+                                                  <div class="input-group">
+                                                      <input type="text" class="form-control  text-bold-600 blue-grey" value="<?php echo $total =  $ser_total+$itm_total+$oser_total; ?>" readonly>
+                                                      <span class="input-group-addon"><i class="icon icon-cash"></i></span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-6">
+                                              <div class="card-title">
+                                                  <label for="cardNumber">Payment</label>
+                                                  <div class="input-group">
+                                                      <input type="text" class="form-control  text-bold-600 blue-grey" value="" readonly>
+                                                      <span class="input-group-addon"><i class="icon icon-cash"></i></span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-6">
+                                              <div class="card-title">
+                                                  <label for="cardNumber">Payment Method</label>
+                                                  <select class="form-control" name="p_method" id="p_method">
+                                                      <option value="Cash">Cash</option>
+                                                      <option value="Card Swipe">Card</option>
+                                                      <option value="Bank">Bank</option>
+                                                  </select></div>
+                                          </div>
+                                        </div>
+                                        <div class="row" style="padding-left: 15px; padding-right:10px;">
+                                          <div class="col-6">
+                                              <div class="form-group  text-bold-600 red">
+                                                  <label for="amount">Balance</label>
+                                                  <input type="text" class="form-control red" name="balance" value="" >
+                                              </div>
+                                          </div>
+                                          
+                                      </div>
+                                            
+                                        <div class="row" style="padding-left: 15px; padding-right:10px;">
+                                          <div class="col-6">
+                                              <button class="btn btn-success btn-lg btn-block mb-1" type="submit" id="pos_basic_pay" data-type="4"><i class="fa fa-arrow-circle-o-right"></i> Pay now                            </button>
+                                              <button class="btn btn-info btn-lg btn-block" type="submit" id="pos_basic_print" data-type="4"><i class="fa fa-print"></i> Pay now + Print</button>
+                                          </div>
+                                      </div>
+
+                                      <div class="row" style="display:none;">
+                                          <div class="col-xs-12">
+                                              <p class="payment-errors"></p>
+                                          </div>
+                                      </div>
+
+
+                                      <!-- shipping -->
+
+
+                                  </div>
+                                  <!-- Modal Footer -->
+
+                              </form>
+                          </div>
                       </div>
-                      <div class="row" style="padding-left: 15px; padding-right:10px;">
-                        <div class="col-6">
-                            <div class="form-group  text-bold-600 red">
-                                <label for="amount">Balance</label>
-                                <input type="text" class="form-control red" name="balance" value="" >
-                            </div>
-                        </div>
-                        
-                    </div>
-                          
-                      <div class="row" style="padding-left: 15px; padding-right:10px;">
-                        <div class="col-6">
-                            <button class="btn btn-success btn-lg btn-block mb-1" type="submit" id="pos_basic_pay" data-type="4"><i class="fa fa-arrow-circle-o-right"></i> Pay now                            </button>
-                            <button class="btn btn-info btn-lg btn-block" type="submit" id="pos_basic_print" data-type="4"><i class="fa fa-print"></i> Pay now + Print</button>
-                        </div>
-                    </div>
-
-                    <div class="row" style="display:none;">
-                        <div class="col-xs-12">
-                            <p class="payment-errors"></p>
-                        </div>
-                    </div>
-
-
-                    <!-- shipping -->
-
-
-                </div>
-                <!-- Modal Footer -->
-
-            </form>
-        </div>
-    </div>
-</div>
+                  </div>
 
                     <tr>
                         <td>Balance</td>
