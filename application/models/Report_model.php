@@ -347,9 +347,54 @@ class Report_model extends CI_Model
         $str = preg_replace("/\t/", "\\t", $str); 
         $str = preg_replace("/\r?\n/", "\\n", $str); 
         if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
-    }    
+    }
+
+    public function service_dep_total($date,$department_id){
+        $sql = "SELECT * FROM order_service WHERE DATE(`created`) = '$date' AND department = $department_id";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $total = 0;
+
+        foreach ($result as $row) {
+            $total = $total+$row->amount;
+        }
+
+        $sql_ = "SELECT * FROM other_service WHERE DATE(`created`) = '$date' AND department = $department_id";
+        $query_ = $this->db->query($sql_);
+        $result_ = $query_->result();
+
+        foreach ($result_ as $row_) {
+            $total = $total+$row_->amount;
+        }
+        return $total;
+    }
+
+    public function total_otherservice_dep(){
+        $sql = "SELECT amount,created FROM other_service WHERE department='department1' GROUP BY created";
+        $query = $this->db->query($sql);
+        $result = $query->result();
+        $count = $query->num_rows();
+
+        $total = 0;
+
+        if ($count > 0) {
+            foreach ($result as $amt) {
+                $total = $total+$amt->amount;
+            }
+        }
+
+        return $total;
+    }
+
+    // public function sales_report(){
+    //     $sql = "SELECT * FROM orders";
+    //     $query = $this->db->query($sql);
+    //     $result = $query->result();
+
+    //     return $result;
+    // }
+    
 
 }
 
 /* End of file Report_model.php and path /application/models/Report_model.php */
-

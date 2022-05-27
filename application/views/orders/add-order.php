@@ -185,7 +185,7 @@
                       <option value="">Select Department</option>
                       <?php
                               foreach ($departments as $dep) {
-                                echo "<option value='$dep->department'>$dep->department</option>";
+                                echo "<option value='$dep->department_id'>$dep->department</option>";
                               }
                             ?>
                     </select>
@@ -222,7 +222,7 @@
                       <option value="">Select Department</option>
                       <?php
                               foreach ($departments as $dep) {
-                                echo "<option value='$dep->department'>$dep->department</option>";
+                                echo "<option value='$dep->department_id'>$dep->department</option>";
                               }
                             ?>
                     </select>

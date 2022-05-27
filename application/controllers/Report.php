@@ -204,6 +204,24 @@ class Report extends CI_Controller
   $this->load->view('reports/footer');
 }
 
+public function SalesReport(){
+  $data['page_title'] = 'Sales Report';
+  $data['username'] = $this->Dashboard_model->username();
+  $data['pending_count'] = $this->Dashboard_model->pending_count();
+  $data['confirm_count'] = $this->Dashboard_model->confirm_count();
+
+  // $data['sales_report'] = $this->Report_model->sales_report();
+  //$data['service_dep'] = $this->Report_model->total_orderservice_dep(1);
+
+      $data['nav'] = "Report";
+      $data['subnav'] = "AddReport";
+
+  $this->load->view('dashboard/layout/header_items',$data);
+  $this->load->view('dashboard/layout/aside_items',$data);
+  $this->load->view('reports/sales_report',$data);
+  $this->load->view('reports/footer_view');
+}
+
 
 }
 
