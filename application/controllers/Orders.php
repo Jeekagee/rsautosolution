@@ -527,7 +527,7 @@ class Orders extends CI_Controller {
     public function Add_Service(){
         if ($this->input->post('service')) {
             $service_id = $this->input->post('service');
-            $department = $this->input->post('department');
+            $department_id = $this->input->post('department');
             $amount = $this->input->post('ser_amount');
         }
         $bill_no = $this->input->post('bill_no');
@@ -537,7 +537,7 @@ class Orders extends CI_Controller {
                 echo "<div class='alert alert-warning'>Please Add New Service</div>"; //for show error
             }
             else{
-                $this->Orders_model->insert_order_service($service_id,$bill_no,$department,$amount); //456
+                $this->Orders_model->insert_order_service($service_id,$bill_no,$department_id,$amount); //456
             }
         }
         

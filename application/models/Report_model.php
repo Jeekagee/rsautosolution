@@ -386,13 +386,13 @@ class Report_model extends CI_Model
         return $total;
     }
 
-    // public function sales_report(){
-    //     $sql = "SELECT * FROM orders";
-    //     $query = $this->db->query($sql);
-    //     $result = $query->result();
+    public function sales_report(){
+        $sql = "SELECT * FROM orders";
+        $query = $this->db->query($sql);
+        $result = $query->result();
 
-    //     return $result;
-    // }
+        return $result;
+    }
     
 
 }

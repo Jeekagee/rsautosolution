@@ -467,17 +467,21 @@ class Orders_model extends CI_Model
         $this->db->insert('expense', $data);
     }
 
-    public function insert_order_service($service_id,$bill_no,$department,$amount){
+    public function insert_order_service($service_id,$bill_no,$department_id,$amount){
         $service_data = $this->service_data($service_id); //468
+        $department_data = $this->department_data($department_id);
 
         $service_id = $service_id;
         $service =$service_data->service;
+
+        $department_id = $department_id;
+        $department =$department_data->department;
 
         $data = array(
             'bill_no' => $bill_no,
             'service_id' => $service_id,
             'service' => $service,
-            'department' => $department,
+            'department' => $department_id,
             'amount' => $amount
         );
         $this->db->insert('order_service', $data);
@@ -485,6 +489,14 @@ class Orders_model extends CI_Model
 
     public function service_data($service_id){
         $sql = "SELECT * FROM service WHERE service_id = $service_id";
+        $query = $this->db->query($sql);
+        $row = $query->first_row();
+
+        return $row;
+    }
+
+    public function department_data($department_id){
+        $sql = "SELECT * FROM departments WHERE department_id = $department_id";
         $query = $this->db->query($sql);
         $row = $query->first_row();
 
@@ -784,8 +796,9 @@ class Orders_model extends CI_Model
     }
 
     public function show_dep($id){
-        $sql = "SELECT s.service_id,d.department FROM service s LEFT JOIN departments d 
-        ON s.department=d.department_id WHERE service_id = $id LIMIT 1";
+        $sql = "SELECT * FROM service WHERE service_id = $id LIMIT 1";
+        // $sql = "SELECT s.service_id,d.department FROM service s LEFT JOIN departments d 
+        // ON s.department=d.department_id WHERE service_id = $id LIMIT 1";
         $query = $this->db->query($sql);
         $row = $query->first_row();
 

@@ -45,14 +45,23 @@
 
     });
   </script>
-
+  
 <script type="text/javascript">
     $(document).ready(function(){
       setTimeout(function() {
         $("#delete_msg").hide('blind', {}, 500)
     }, 5000);
     });
+  
+    function reset(){
+      $("#p_date").val("");
+      $("#transfer").val("");
+      $("#p_method").val("");
+      $("#amount").val("");
+    }
+
 </script>
+
 
 </body>
 

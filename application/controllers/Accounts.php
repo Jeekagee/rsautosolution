@@ -27,7 +27,10 @@ class Accounts extends CI_Controller
 
         $data['pending_count'] = $this->Dashboard_model->pending_count();
         $data['confirm_count'] = $this->Dashboard_model->confirm_count();
-        // $data['location'] = $this->Purchase_model->locations(); 
+
+        $data['accounts'] = $this->Accounts_model->accounts(); 
+        $data['p_method'] = $this->Accounts_model->payment_method();
+        $data['account'] = $this->Accounts_model->show_accounts(); 
 
         $data['nav'] = "Accounts";
         $data['subnav'] = "Add Accounts";
@@ -39,31 +42,32 @@ class Accounts extends CI_Controller
         $this->load->view('accounts/footer');
     }
 
-    public function insertSupplier(){
-      $this->form_validation->set_rules('id', 'Supplier ID', 'required|is_unique[supplier.id]');
-      $this->form_validation->set_rules('supplier', 'Supplier Name', 'required');
-      //$this->form_validation->set_rules('location_id', 'Supplier Location', 'required');
-      
-      if ($this->form_validation->run() == FALSE){
-          $this->AddSupplier();
-      }
-      else{
-          $id = $this->input->post('id');
-          $name = $this->input->post('supplier');
-          //$loc = $this->input->post('location_id');
+  public function insert_accounts(){
 
-          $this->Purchase_model->insert_supplier($id,$name);
+    $this->form_validation->set_rules('p_date', 'Date', 'required');
+    $this->form_validation->set_rules('transfer', 'Transfer', 'required');
+    $this->form_validation->set_rules('p_method', 'Payment Method', 'required');
+    $this->form_validation->set_rules('amount', 'Amount', 'required');
+    // $this->form_validation->set_rules('amount', 'Amount', 'required');
 
-          //Flash Msg
-          $this->session->set_flashdata('delete',"<div class='alert alert-success'> New Employee has been assigned!</div>");
-          
-          // Redirect to Add Purchase
-          redirect('/Purchase/AddNew');
-      }
+    if ($this->form_validation->run() == FALSE){
+        $this->AddAccounts();
+    }
+    else{
+        $p_date = $this->input->post('p_date');
+        $transfer = $this->input->post('transfer');
+        $p_method = $this->input->post('p_method');
+        $amount = $this->input->post('amount');
+        $comment = $this->input->post('comment');
+        $this->Accounts_model->insert_accounts($p_date,$transfer,$p_method,$amount,$comment);
+        $this->session->set_flashdata('msg', '<div style="font-size:13px;" class="alert alert-success">Added Successfully</div>');
+        redirect('Accounts/AddAccounts');
+    }
   }
 
-
 }
+
+
 
 
 /* End of file Accounts.php */

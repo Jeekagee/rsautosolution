@@ -37,6 +37,10 @@
                   $CI =& get_instance();
                   // for each day in the month
                   $sub_total = 0;
+                  $ser_total = 0;
+                  $mecha_total = 0;
+                  $pain_total = 0;
+                  $admin_total = 0;
                   for($i = 1; $i <=  date('t'); $i++)
                   {
                     // add the date to the dates array
@@ -63,14 +67,18 @@
 
                     <?php
                     $sub_total = $sub_total+$total;
+                    $ser_total = $ser_total+$ser_t;
+                    $mecha_total = $mecha_total+$mecha_t;
+                    $pain_total = $pain_total+$pain_t;
+                    $admin_total = $admin_total+$admin_t;
                   }
                 ?>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <tr style="font-weight: bold;">
+                  <td class="text-center">Sub Total</td>
+                  <td class="text-right"><?php echo $ser_total ?>.00</td>
+                  <td class="text-right"><?php echo $mecha_total ?>.00</td>
+                  <td class="text-right"><?php echo $pain_total ?>.00</td>
+                  <td class="text-right"><?php echo $admin_total ?>.00</td>
                   <td class="text-right"><?php echo $sub_total; ?>.00</td>
                 </tr>
                 

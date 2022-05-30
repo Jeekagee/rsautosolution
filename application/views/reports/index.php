@@ -38,6 +38,13 @@
         <div class="sec-container">
             <div class="row">
             <div class="col-md-2">
+                    <a href="<?php echo base_url(); ?>Report/SalesReport">
+                    <div class="text-center report-cart" style="background-color:#6ECB63;">
+                        SALES
+                    </div>
+                    </a>
+            </div>
+            <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>Report/PurchaseSummary">
                         <div class="text-center report-cart" style="background-color:#F8485E;">
                             PURCHASE
@@ -68,16 +75,8 @@
                     PROFIT&LOST
                 </div>
             </div>
-            <div class="col-md-2">
-                    <a href="<?php echo base_url(); ?>AddReport/Order">
-                    <div class="text-center report-cart" style="background-color:#6ECB63;">
-                        ORDER
-                    </div>
-                    </a>
-            </div>
             </div>
         </div>
     </section>
 </section>
     <!-- /MAIN CONTENT -->
-
